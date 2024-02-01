@@ -4,6 +4,7 @@ import helmet from "helmet";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
+import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
 
@@ -11,6 +12,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
+
+//routes
+// app.use("/register", userRoutes);
 
 //mongodb connection
 const uri = process.env.MONGODB_URL;
