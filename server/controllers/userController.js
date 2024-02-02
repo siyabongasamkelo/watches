@@ -74,8 +74,30 @@ const getUser = async (req, res) => {
     const user = await userModel.findById(userId);
     res.status(200).json(user);
   } catch (error) {
+    console.log(err);
     res.status(400).json(error);
   }
 };
 
-export { registerUser, loginUser, getUser };
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await userModel.find();
+    res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await userModel.findByIdAndDelete(userId);
+    res.status(200).json(user);
+  } catch (err) {
+    console.log(err);
+    res.status(200).json(err);
+  }
+};
+
+export { registerUser, loginUser, getUser, getAllUsers };
