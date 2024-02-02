@@ -1,4 +1,5 @@
-import userModel from "../model/userModel";
+// import userModel from "../model/userModel";
+import { userModel } from "../model/userModel.js";
 import bcrypt from "bcrypt";
 import validator from "validator";
 import jwt from "jsonwebtoken";
@@ -10,12 +11,11 @@ const createToken = (id) => {
   return jwt.sign({ id }, jwtKey, { expiresIn: "3d" });
 };
 
-export const registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    let userExists = userModel.findOne({ email });
-
+    let userExists = await userModel.findOne({ email });
     if (userExists) return res.status(400).json("User already exists");
 
     //validations
@@ -35,11 +35,14 @@ export const registerUser = async (req, res) => {
       email,
     });
 
-    newUser.save();
+    const token = createToken(newUser._id);
+
+    await newUser.save();
+    res.status(200).json({ username, email, token });
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
   }
 };
 
-// module.exports = { registerUser };
+export { registerUser };
