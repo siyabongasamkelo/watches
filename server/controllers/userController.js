@@ -96,8 +96,45 @@ const deleteUser = async (req, res) => {
     res.status(200).json("user deleted successfully");
   } catch (err) {
     console.log(err);
-    res.status(200).json(err);
+    res.status(400).json(err);
   }
 };
 
-export { registerUser, loginUser, getUser, getAllUsers, deleteUser };
+const updateUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { email, password, username } = req.body;
+
+    //validation
+    if (!userId) return res.status(400).json("user id is required");
+    if (!username || !email || !password)
+      return res.status(400).json("Please fill all the fields");
+
+    if (!validator.isEmail(email))
+      return res.status(400).json("Please enter a valid email");
+    if (!validator.isStrongPassword(password))
+      return res.status(400).json("Please enter a strong password");
+
+    //hashing the new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const update = { email, password: hashedPassword, username };
+    const user = await userModel.findByIdAndUpdate(userId, update, {
+      new: true,
+    });
+    res.status(200).json("user updated successfully");
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+};
+
+export {
+  registerUser,
+  loginUser,
+  getUser,
+  getAllUsers,
+  deleteUser,
+  updateUser,
+};
