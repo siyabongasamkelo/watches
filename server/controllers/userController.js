@@ -45,4 +45,26 @@ const registerUser = async (req, res) => {
   }
 };
 
-export { registerUser };
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    if (!email || !password)
+      return res.status(400).json("Please fill all the fields");
+
+    const user = await userModel.findOne({ email });
+    if (!user) return res.status(400).json("Invalid email or password");
+
+    const validity = await bcrypt.compare(password, user.password);
+    if (!validity) return res.status(400).json("Wrong Password");
+
+    const token = createToken(user._id);
+
+    res.status(200).json({ email, username: user.username, token });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+};
+
+export { registerUser, loginUser };
