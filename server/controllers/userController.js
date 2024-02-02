@@ -93,11 +93,11 @@ const deleteUser = async (req, res) => {
   try {
     const { userId } = req.params;
     const user = await userModel.findByIdAndDelete(userId);
-    res.status(200).json(user);
+    res.status(200).json("user deleted successfully");
   } catch (err) {
     console.log(err);
     res.status(200).json(err);
   }
 };
 
-export { registerUser, loginUser, getUser, getAllUsers };
+export { registerUser, loginUser, getUser, getAllUsers, deleteUser };
