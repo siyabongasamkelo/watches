@@ -14,7 +14,7 @@ app.use(cors());
 app.use(helmet());
 
 //routes
-app.use("/register", userRoutes);
+app.use("/user", userRoutes);
 
 //mongodb connection
 const uri = process.env.MONGODB_URL;
