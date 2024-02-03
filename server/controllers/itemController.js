@@ -68,4 +68,36 @@ const deleteItem = async (req, res) => {
   }
 };
 
-export { createItem, getItem, getItems };
+const updateItem = async (req, res) => {
+  try {
+    const { itemId } = req.params;
+    const { name, price, category } = req.body;
+    const image = req.files;
+
+    if (!itemId) return res.status(400).json("item id is required");
+    if ((!name, !price, !category, !image))
+      return res.status(400).json("Please fill all the fields");
+
+    const imageUpload = await cloudinary.uploader.upload(
+      image.image.tempFilePath,
+      {
+        upload_preset: "watches",
+      }
+    );
+
+    const imageUrl = imageUpload.secure_url;
+
+    const update = { name, price, category, image: imageUrl };
+
+    const itemUpdate = await itemModel.findByIdAndUpdate(itemId, update, {
+      new: true,
+    });
+
+    res.status(200).json("item updated successfully");
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+};
+
+export { createItem, getItem, getItems, updateItem, deleteItem };
