@@ -51,4 +51,15 @@ const updateReview = async (req, res) => {
   }
 };
 
-export { createReview, getReview, updateReview };
+const deleteReview = async (req, res) => {
+  try {
+    const { reviewId } = req.params;
+    const review = await reviewModel.findByIdAndDelete(reviewId);
+    res.status(200).json("review deleted successfully");
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+};
+
+export { createReview, getReview, updateReview, deleteReview };
