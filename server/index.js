@@ -18,7 +18,7 @@ app.use(helmet());
 //routes
 app.use("/user", userRoutes);
 app.use("/item", itemRoutes);
-app.use("review", reviewRoutes);
+app.use("/review", reviewRoutes);
 
 //mongodb connection
 const uri = process.env.MONGODB_URL;
