@@ -22,4 +22,22 @@ const createReview = async (req, res) => {
   }
 };
 
-export { createReview };
+const getReview = async (req, res) => {
+  try {
+    const reviews = await reviewModel.find();
+    res.status(200).json(reviews);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+};
+
+const updateReview = async (req, res) => {
+  try {
+  } catch (err) {
+    console.log(err);
+    res.json(400).json(err);
+  }
+};
+
+export { createReview, getReview };
