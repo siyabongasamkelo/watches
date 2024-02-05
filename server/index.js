@@ -7,6 +7,7 @@ dotenv.config();
 import userRoutes from "./routes/userRoutes.js";
 import itemRoutes from "./routes/itemRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(helmet());
 app.use("/user", userRoutes);
 app.use("/item", itemRoutes);
 app.use("/review", reviewRoutes);
+app.use("/", paymentRoutes);
 
 //mongodb connection
 const uri = process.env.MONGODB_URL;
