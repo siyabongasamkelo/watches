@@ -25,7 +25,7 @@ const Header = () => {
               marginRight: "30px",
             }}
           />
-          <TextBox />
+          <TextBox placeholder="search here..." />
         </LogoAndSearch>
         <HeaderLinks>
           <Link to={"/home"}>Home</Link>
