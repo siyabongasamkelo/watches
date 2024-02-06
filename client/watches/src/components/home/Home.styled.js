@@ -99,8 +99,6 @@ export const HeroText = styled.div`
 export const HeroHeader = styled.h1`
   color: ${(props) => props.theme.light.primary};
   text-align: center;
-  @media only screen and (max-width: 600px) {
-  }
   @media only screen and (min-width: 1200px) {
     padding-top: 15%;
     font-size: 52px;
