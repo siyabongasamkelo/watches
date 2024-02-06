@@ -9,9 +9,11 @@ import {
   HeroText,
   Homestyled,
   MyButton,
+  SocialMediaIcons,
 } from "./Home.styled";
 import watch1 from "../../assets/images/hero1.jpg";
 import watch2 from "../../assets/images/hero2.jpg";
+import { Facebook, Instagram, Twitter, Whatsapp } from "react-bootstrap-icons";
 
 const Home = () => {
   return (
@@ -27,11 +29,17 @@ const Home = () => {
             <HeroHeader>Luxurious Watches</HeroHeader>
             <HeroParagraph>
               These are the world class watches trust me nothing is better than
-              this you gotta trus me...
+              this you gotta trust me...
             </HeroParagraph>
             <HeroAction>
               <MyButton>Shop Now</MyButton>
             </HeroAction>
+            <SocialMediaIcons>
+              <Facebook />
+              <Whatsapp />
+              <Twitter />
+              <Instagram />
+            </SocialMediaIcons>
           </HeroText>
         </HeroSection>
       </Homestyled>
