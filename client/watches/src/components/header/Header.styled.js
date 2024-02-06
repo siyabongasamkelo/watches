@@ -11,10 +11,29 @@ export const HeaderStyled = styled.header`
       fill: rgba(0, 0, 0, 0.8);
     }
   }
+  @media only screen and (min-width: 768px) {
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    svg {
+      transform: scale(1.6);
+      fill: rgba(0, 0, 0, 0.8);
+    }
+  }
 `;
 export const LogoAndSearch = styled.div`
   @media only screen and (max-width: 600px) {
     width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  @media only screen and (min-width: 768px) {
+    width: 30%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -25,6 +44,13 @@ export const LogoAndSearch = styled.div`
 export const MenuAndCart = styled.div`
   @media only screen and (max-width: 600px) {
     width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  @media only screen and (min-width: 768px) {
+    width: 30%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -46,11 +72,27 @@ export const Logo = styled.h3`
       width: 45px;
     }
   }
+  @media only screen and (min-width: 768px) {
+    height: 50px;
+    width: 50px;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    img {
+      cursor: pointer;
+      width: 45px;
+    }
+  }
 `;
 
 export const CartTotal = styled.h4`
   @media only screen and (max-width: 600px) {
-    /* color: #f28585; */
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 16px;
+  }
+  @media only screen and (min-width: 768px) {
     color: rgba(0, 0, 0, 0.6);
     font-size: 16px;
   }
