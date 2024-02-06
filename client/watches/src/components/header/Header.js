@@ -1,13 +1,16 @@
 import {
   CartTotal,
+  HeaderLinks,
   HeaderStyled,
   Logo,
   LogoAndSearch,
   MenuAndCart,
+  TextBox,
 } from "./Header.styled";
 import { Container } from "react-bootstrap";
 import { Search, List, BagFill } from "react-bootstrap-icons";
 import logo from "../../assets/images/logo.png";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -22,7 +25,14 @@ const Header = () => {
               marginRight: "30px",
             }}
           />
+          <TextBox />
         </LogoAndSearch>
+        <HeaderLinks>
+          <Link to={"/home"}>Home</Link>
+          <Link to={"/shop"}>Shop</Link>
+          <Link to={"/login"}>Login</Link>
+          <Link to={"/account"}>Contact</Link>
+        </HeaderLinks>
         <MenuAndCart>
           <CartTotal>R 4000.00</CartTotal>
           <BagFill />
