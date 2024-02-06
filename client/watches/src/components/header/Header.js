@@ -20,18 +20,13 @@ const Header = () => {
           <Search
             style={{
               marginRight: "30px",
-              //   transform: "scale(1.3)"
             }}
           />
         </LogoAndSearch>
         <MenuAndCart>
           <CartTotal>R 4000.00</CartTotal>
-          <BagFill
-          // style={{ transform: "scale(1.3)" }}
-          />
-          <List
-          // style={{ transform: "scale(1.4)" }}
-          />
+          <BagFill />
+          <List />
         </MenuAndCart>
       </HeaderStyled>
     </Container>
