@@ -13,6 +13,7 @@ function App() {
     light: {
       primary: "#ac7d88;",
       secondary: " #fdf0d1",
+      tetiary: "#85586F",
       text: "rgba(0,0,0,0.7)",
       smallText: "rgba(0, 0, 0, 0.8)",
     },
