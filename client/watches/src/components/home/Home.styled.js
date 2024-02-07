@@ -73,6 +73,7 @@ export const HeroImages = styled.div`
       position: absolute;
       left: 0%;
       top: 5%;
+      object-fit: cover;
     }
     .pic2 {
       height: 23%;
@@ -81,6 +82,7 @@ export const HeroImages = styled.div`
       position: absolute;
       top: 27%;
       left: 25%;
+      object-fit: cover;
     }
   }
   @media only screen and (min-width: 1200px) {
