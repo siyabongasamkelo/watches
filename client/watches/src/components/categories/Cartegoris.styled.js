@@ -15,8 +15,12 @@ export const CategoriesStyled = styled.section`
     height: 100vh;
     flex-direction: column;
   }
-  @media only screen and (min-width: 1200px) {
+  @media only screen and (min-width: 992px) {
     height: 45vh;
     flex-direction: row;
   }
+  /* @media only screen and (min-width: 1200px) {
+    height: 45vh;
+    flex-direction: row;
+  } */
 `;
