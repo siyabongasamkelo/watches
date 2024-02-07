@@ -3,10 +3,14 @@ export const CartegoryDivsStyled = styled.div`
   height: 28%;
   width: 85%;
   cursor: pointer;
-  @media only screen and (min-width: 1200px) {
+  @media only screen and (min-width: 992px) {
     height: 85%;
     width: 30%;
   }
+  /* @media only screen and (min-width: 1200px) {
+    height: 85%;
+    width: 30%;
+  } */
 `;
 
 export const CartegoryImage = styled.div`
@@ -17,6 +21,9 @@ export const CartegoryImage = styled.div`
   background-position: center;
   @media only screen and (min-width: 768px) {
     height: 85%;
+  }
+  @media only screen and (min-width: 992px) {
+    height: 75%;
   }
   @media only screen and (min-width: 1200px) {
     height: 75%;
