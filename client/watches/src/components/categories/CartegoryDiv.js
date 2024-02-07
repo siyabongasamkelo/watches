@@ -7,10 +7,6 @@ export const CartegoryDivsStyled = styled.div`
     height: 85%;
     width: 30%;
   }
-  /* @media only screen and (min-width: 1200px) {
-    height: 85%;
-    width: 30%;
-  } */
 `;
 
 export const CartegoryImage = styled.div`
