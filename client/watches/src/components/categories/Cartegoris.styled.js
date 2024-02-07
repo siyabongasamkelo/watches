@@ -7,6 +7,8 @@ export const CategoriesStyled = styled.section`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  font-family: "Great Vibes", cursive;
+  font-family: "Kalam", cursive;
   @media only screen and (max-width: 600px) {
     height: 100vh;
     flex-direction: column;
@@ -19,8 +21,4 @@ export const CategoriesStyled = styled.section`
     height: 45vh;
     flex-direction: row;
   }
-  /* @media only screen and (min-width: 1200px) {
-    height: 45vh;
-    flex-direction: row;
-  } */
 `;
