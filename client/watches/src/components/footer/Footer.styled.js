@@ -2,37 +2,63 @@ import styled from "styled-components";
 import { TextBox } from "../header/Header.styled";
 
 export const FooterStyled = styled.footer`
-  height: 40vh;
+  height: 70vh;
   margin-top: 100px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   font-family: "Great Vibes", cursive;
   font-family: "Kalam", cursive;
+  @media only screen and (min-width: 992px) {
+    flex-direction: row;
+    height: 40vh;
+  }
 `;
 
 export const LogoAndEmail = styled.div`
-  height: 80%;
-  width: 30%;
+  width: 100%;
+  height: 20%;
+  @media only screen and (min-width: 992px) {
+    height: 80%;
+    width: 30%;
+  }
 `;
 
 export const GetHelp = styled.div`
-  height: 80%;
-  width: 30%;
+  width: 100%;
+  height: 40%;
+  @media only screen and (min-width: 992px) {
+    height: 80%;
+    width: 30%;
+  }
 `;
 
 export const Subscribe = styled.div`
-  height: 80%;
-  width: 30%;
+  width: 100%;
+  height: 25%;
+  @media only screen and (min-width: 992px) {
+    height: 80%;
+    width: 30%;
+  }
 `;
 
 export const Logo = styled.div`
-  height: 100px;
-  width: 170px;
-  margin-bottom: 40px;
+  height: 60px;
+  width: 110px;
   img {
     height: 100%;
     width: 100%;
-    margin-left: -30px;
+    margin: 0;
+  }
+  @media only screen and (min-width: 992px) {
+    height: 100px;
+    width: 170px;
+    margin-bottom: 40px;
+    img {
+      height: 100%;
+      width: 100%;
+      margin-left: -30px;
+    }
   }
 `;
 
@@ -40,6 +66,8 @@ export const ContactsDetails = styled.p`
   color: ${(props) => props.theme.light.smallText};
   text-align: left;
   font-size: 13px;
+  @media only screen and (max-width: 600px) {
+  }
   @media only screen and (min-width: 992px) {
     text-align: left;
     font-size: 17px;
@@ -56,6 +84,9 @@ export const GetHelpHeader = styled(ContactsDetails)`
   margin-bottom: 60px;
   font-weight: 800;
   font-size: 20px;
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 20px;
+  }
 `;
 
 export const GetHelpItems = styled(ContactsDetails)``;
@@ -64,6 +95,7 @@ export const SubscribeHeader = styled(GetHelpHeader)``;
 
 export const SubscribeInput = styled(TextBox)`
   width: 250px;
+  display: block;
 `;
 
 export const MyButton = styled.button`
