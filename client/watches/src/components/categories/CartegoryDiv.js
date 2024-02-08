@@ -46,15 +46,12 @@ export const CartegoryParagraph = styled.p`
   }
 `;
 
-const CartegoryDiv = ({ image }) => {
+const CartegoryDiv = ({ image, name, description }) => {
   return (
     <CartegoryDivsStyled>
       <CartegoryImage image={image}></CartegoryImage>
-      <CartegoryHeader>Classic Watches</CartegoryHeader>
-      <CartegoryParagraph>
-        These are classic watches from the 17th century designed by the best
-        Italian designers
-      </CartegoryParagraph>
+      <CartegoryHeader>{name}</CartegoryHeader>
+      <CartegoryParagraph>{description}</CartegoryParagraph>
     </CartegoryDivsStyled>
   );
 };
