@@ -30,7 +30,6 @@ const Footer = () => {
         </LogoAndEmail>
         <GetHelp>
           <GetHelpHeader>Get Help</GetHelpHeader>
-          {/* <ContactsDetails>FAQs</ContactsDetails> */}
           <GetHelpItems>FAQs</GetHelpItems>
           <GetHelpItems>Privacy Policy</GetHelpItems>
           <GetHelpItems>Terms & Conditions</GetHelpItems>
