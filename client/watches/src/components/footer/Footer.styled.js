@@ -11,7 +11,7 @@ export const FooterStyled = styled.footer`
   font-family: "Kalam", cursive;
   @media only screen and (min-width: 992px) {
     flex-direction: row;
-    height: 40vh;
+    height: 50vh;
   }
 `;
 
@@ -81,7 +81,7 @@ export const ContactsDetails = styled.p`
 `;
 
 export const GetHelpHeader = styled(ContactsDetails)`
-  margin-bottom: 60px;
+  margin-bottom: 10%;
   font-weight: 800;
   font-size: 20px;
   @media only screen and (max-width: 600px) {
