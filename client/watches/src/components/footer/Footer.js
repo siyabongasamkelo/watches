@@ -53,13 +53,14 @@ const Footer = () => {
       </FooterStyled>
       <div
         style={{
-          textAlign: "center",
           fontFamily: "Kalam, cursive",
           marginBottom: "30px",
         }}
       >
-        copyright&copy; {new Date().getFullYear()} All rights reserved siyabonga
-        Mazibuko
+        <GetHelpItems style={{ textAlign: "center" }}>
+          copyright&copy; {new Date().getFullYear()} All rights reserved
+          siyabonga Mazibuko
+        </GetHelpItems>
       </div>
     </Container>
   );
