@@ -1,5 +1,4 @@
 import { CategoriesStyled } from "./Cartegoris.styled";
-import hero2 from "../../assets/images/hero2.jpg";
 import { Container } from "react-bootstrap";
 import CartegoryDiv from "./CartegoryDiv";
 import styled from "styled-components";
