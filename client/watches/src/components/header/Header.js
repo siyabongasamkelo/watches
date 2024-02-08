@@ -11,8 +11,12 @@ import { Container } from "react-bootstrap";
 import { Search, List, BagFill } from "react-bootstrap-icons";
 import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import HeaderSlider from "./HeaderSlider";
 
 const Header = () => {
+  const [closeMenu, setCloseMenu] = useState(true);
+  const [display, setDisplay] = useState("block");
   return (
     <Container>
       <HeaderStyled>
@@ -36,8 +40,25 @@ const Header = () => {
         <MenuAndCart>
           <CartTotal>R 4000.00</CartTotal>
           <BagFill />
-          <List />
+
+          {/* menu button that opens the header slider */}
+          <List
+            onClick={() => {
+              closeMenu ? setDisplay("none") : setDisplay("block");
+              setCloseMenu(false);
+            }}
+          />
         </MenuAndCart>
+        {/* Header slider that slides in when you click menu */}
+        {/* !!!!!! */}
+
+        <HeaderSlider
+          setCloseMenu={() => {
+            setCloseMenu(true);
+          }}
+          closeMenu={closeMenu}
+          display={display}
+        ></HeaderSlider>
       </HeaderStyled>
     </Container>
   );
