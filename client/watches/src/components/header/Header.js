@@ -32,7 +32,7 @@ const Header = () => {
           <TextBox placeholder="search here..." />
         </LogoAndSearch>
         <HeaderLinks>
-          <Link to={"/home"}>Home</Link>
+          <Link to={"/"}>Home</Link>
           <Link to={"/shop"}>Shop</Link>
           <Link to={"/login"}>Login</Link>
           <Link to={"/account"}>Contact</Link>
