@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "styled-components";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -41,6 +43,7 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
+        <ToastContainer />
         <RouterProvider router={router} />
       </ThemeProvider>
     </>
