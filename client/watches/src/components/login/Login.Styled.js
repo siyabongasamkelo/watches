@@ -17,10 +17,18 @@ export const LoginHeader = styled(PopularProductsHeader)`
 `;
 
 export const LoginForm = styled.form`
-  width: 25%;
-  height: 50%;
-  margin: 0% 0 0 38%;
-  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  @media only screen and (min-width: 768px) {
+    width: 70%;
+    margin-left: 15%;
+  }
+  @media only screen and (min-width: 992px) {
+    width: 30%;
+    height: 50%;
+    margin: 0% 0 0 38%;
+    border-radius: 10px;
+  }
 `;
 
 export const LoginLabel = styled.div``;
@@ -28,6 +36,7 @@ export const LoginLabel = styled.div``;
 export const LoginInput = styled(TextBox)`
   margin-top: 30px;
   width: 100%;
+  display: block;
 `;
 
 export const SubmitButton = styled(MyButton)`
