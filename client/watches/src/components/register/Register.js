@@ -46,6 +46,8 @@ const Register = () => {
         password,
       });
 
+      console.log(RegisterUser);
+
       if (RegisterUser.error) {
         showToastMessage(RegisterUser.message);
       } else {
