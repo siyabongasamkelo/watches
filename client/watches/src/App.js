@@ -7,6 +7,7 @@ import {
 import HomePage from "./pages/HomePage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ThemeProvider } from "styled-components";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   const theme = {
@@ -30,6 +31,7 @@ function App() {
       <Route>
         <Route index element={<HomePage />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/*" element={<HomePage />} />
       </Route>
     )
