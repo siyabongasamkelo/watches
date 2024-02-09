@@ -11,6 +11,8 @@ export const HeaderSliderStyled = styled.div`
   top: 0%;
   border-radius: 10px 0 0 10px;
   overflow-x: hidden;
+  font-family: "Great Vibes", cursive;
+  font-family: "Kalam", cursive;
   @media only screen and (min-width: 992px) {
     display: none;
   }
@@ -28,6 +30,18 @@ export const CloseButton = styled.div`
 
 export const HeaderSliderItems = styled(HeroHeader)`
   margin-top: 5%;
+`;
+
+export const LinksContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  a {
+    color: ${(props) => props.theme.light.primary};
+    text-align: center;
+    text-decoration: none;
+    font-size: 44px;
+    font-weight: 800;
+  }
 `;
 
 export const HeaderSliderSearch = styled(SubscribeInput)`
