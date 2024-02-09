@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import Header from "../header/Header";
 import { SubmitButton } from "../login/Login.Styled";
 import {
+  LoginNowText,
   RegisterContent,
   RegisterForm,
   RegisterHeader,
@@ -19,6 +21,9 @@ const Register = () => {
           <RegisterInput placeholder="type email..." />
           <RegisterInput placeholder="type password..." />
           <RegisterInput placeholder="confirm password..." />
+          <LoginNowText>
+            Already have an account <Link to={"/login"}>Login</Link> now
+          </LoginNowText>
           <SubmitButton>Submit</SubmitButton>
         </RegisterForm>
       </RegisterContent>
