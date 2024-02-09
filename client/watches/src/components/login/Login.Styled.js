@@ -31,7 +31,12 @@ export const LoginForm = styled.form`
   }
 `;
 
-export const LoginLabel = styled.div``;
+export const ErrorLabel = styled.label`
+  color: red;
+  font-size: 12px;
+  margin-top: 10px;
+  margin-left: 30px;
+`;
 
 export const LoginInput = styled(TextBox)`
   margin-top: 30px;
