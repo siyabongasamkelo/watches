@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { PopularProductsHeader } from "../popularProducts/PopularProducts.styled";
 import { TextBox } from "../header/Header.styled";
-import { MyButton } from "../home/Home.styled";
+import { HeroParagraph, MyButton } from "../home/Home.styled";
 
 export const LoginStyled = styled.section`
   width: 100%;
@@ -37,6 +37,11 @@ export const LoginInput = styled(TextBox)`
   margin-top: 30px;
   width: 100%;
   display: block;
+`;
+
+export const RegisterNowText = styled(HeroParagraph)`
+  margin-top: 5%;
+  margin-left: 5%;
 `;
 
 export const SubmitButton = styled(MyButton)`
