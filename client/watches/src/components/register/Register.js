@@ -12,19 +12,16 @@ import {
 import { useFormik } from "formik";
 import { userSchema } from "../../validations/UserValidation";
 import { baseUrl, postRequest } from "../../utils/Services";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
-  const showToastMessage = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.TOP_RIGHT,
-    });
+  const showToastErrorMessage = (message) => {
+    toast.error(message);
   };
 
-  const succToastMessage = (message) => {
-    toast.success(message, {
-      position: toast.POSITION.TOP_RIGHT,
-    });
+  const successToastMessage = (message) => {
+    toast.success(message);
   };
 
   const formik = useFormik({
@@ -36,27 +33,32 @@ const Register = () => {
     },
     validationSchema: userSchema,
     onSubmit: async () => {
-      const { username } = formik.values;
-      const { email } = formik.values;
-      const { password } = formik.values;
+      try {
+        const { username } = formik.values;
+        const { email } = formik.values;
+        const { password } = formik.values;
 
-      const RegisterUser = await postRequest(`${baseUrl}/user/register`, {
-        username,
-        email,
-        password,
-      });
+        const RegisterUser = await postRequest(`${baseUrl}/user/register`, {
+          username,
+          email,
+          password,
+        });
 
-      console.log(RegisterUser);
+        if (RegisterUser.error) {
+          showToastErrorMessage(
+            "there was a problem while registering you please try again"
+          );
+          return showToastErrorMessage(RegisterUser?.err?.response?.data);
+        }
 
-      if (RegisterUser.error) {
-        showToastMessage(RegisterUser.message);
-      } else {
-        succToastMessage(RegisterUser.message);
+        localStorage.setItem("User", JSON.stringify(RegisterUser.data.data));
+        successToastMessage("user registered successfully");
+      } catch (err) {
+        console.log(err.message);
+        showToastErrorMessage("Something went wrong please try again later");
       }
     },
   });
-
-  console.log(formik.errors);
 
   return (
     <RegisterStyled>
@@ -64,6 +66,7 @@ const Register = () => {
       <RegisterContent>
         <RegisterHeader>Register</RegisterHeader>
         <RegisterForm onSubmit={formik.handleSubmit}>
+          <ToastContainer />
           <div>
             <RegisterInput
               placeholder="type username..."
@@ -91,6 +94,7 @@ const Register = () => {
           <div>
             <RegisterInput
               placeholder="type password..."
+              type="password"
               name="password"
               value={formik.values.password}
               onBlur={formik.handleBlur}
@@ -102,6 +106,7 @@ const Register = () => {
           <div>
             <RegisterInput
               placeholder="confirm password..."
+              type="password"
               name="conPassword"
               value={formik.values.conPassword}
               onBlur={formik.handleBlur}
