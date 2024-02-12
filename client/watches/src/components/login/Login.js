@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
+import { useNavigate } from "react-router-dom";
 import {
   ErrorLabel,
   LoginContent,
@@ -16,14 +17,21 @@ import { LoginSchema } from "../../validations/UserValidation";
 import { baseUrl, postRequest } from "../../utils/Services";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const showToastErrorMessage = (message) => {
     toast.error(message);
   };
 
   const successToastMessage = (message) => {
     toast.success(message);
+  };
+
+  const goHome = () => {
+    navigate("/");
   };
 
   const formik = useFormik({
@@ -33,6 +41,7 @@ const Login = () => {
     },
     validationSchema: LoginSchema,
     onSubmit: async () => {
+      setLoading(true);
       try {
         const { email } = formik.values;
         const { password } = formik.values;
@@ -46,19 +55,21 @@ const Login = () => {
           showToastErrorMessage(
             "there was a problem while logging you in please try again"
           );
+          setLoading(false);
           return showToastErrorMessage(loggingUser?.err?.response?.data);
         }
 
         localStorage.setItem("User", JSON.stringify(loggingUser?.data?.data));
+        setLoading(false);
         successToastMessage("user logged in successfully");
+        setTimeout(goHome, 4000);
       } catch (err) {
         console.log(err.message);
+        setLoading(false);
         showToastErrorMessage("Something went wrong please try again later");
       }
     },
   });
-
-  console.log(formik);
 
   return (
     <LoginStyled>
@@ -101,7 +112,9 @@ const Login = () => {
             reset
           </RegisterNowText>
 
-          <SubmitButton type="submit">Submit</SubmitButton>
+          <SubmitButton type="submit">
+            {loading ? "submitting..." : "login"}
+          </SubmitButton>
         </LoginForm>
       </LoginContent>
       <Footer />
