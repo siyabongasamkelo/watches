@@ -14,8 +14,15 @@ import { userSchema } from "../../validations/UserValidation";
 import { baseUrl, postRequest } from "../../utils/Services";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const goHome = () => {
+    navigate("/");
+  };
   const showToastErrorMessage = (message) => {
     toast.error(message);
   };
@@ -33,6 +40,7 @@ const Register = () => {
     },
     validationSchema: userSchema,
     onSubmit: async () => {
+      setLoading(true);
       try {
         const { username } = formik.values;
         const { email } = formik.values;
@@ -48,14 +56,17 @@ const Register = () => {
           showToastErrorMessage(
             "there was a problem while registering you please try again"
           );
+          setLoading(false);
           return showToastErrorMessage(RegisterUser?.err?.response?.data);
         }
-
         localStorage.setItem("User", JSON.stringify(RegisterUser.data.data));
+        setLoading(false);
         successToastMessage("user registered successfully");
+        setTimeout(goHome, 4000);
       } catch (err) {
         console.log(err.message);
         showToastErrorMessage("Something went wrong please try again later");
+        setLoading(false);
       }
     },
   });
@@ -117,7 +128,9 @@ const Register = () => {
           <LoginNowText>
             Already have an account <Link to={"/login"}>Login</Link> now
           </LoginNowText>
-          <SubmitButton type="submit">Submit</SubmitButton>
+          <SubmitButton type="submit">
+            {loading ? "submitting..." : "register"}
+          </SubmitButton>
         </RegisterForm>
       </RegisterContent>
     </RegisterStyled>
