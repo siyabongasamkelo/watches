@@ -12,5 +12,5 @@ export const userSchema = yup.object().shape({
 
 export const LoginSchema = yup.object().shape({
   email: yup.string().email("email not valid").required(),
-  password: yup.string().min(3).max(8).required(),
+  password: yup.string().min(3).max(14).required(),
 });
