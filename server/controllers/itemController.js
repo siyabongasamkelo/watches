@@ -48,7 +48,35 @@ const getItem = async (req, res) => {
 
 const getItems = async (req, res) => {
   try {
-    const items = await itemModel.find();
+    const page = parseInt(req.query.page) - 1 || 0;
+    const limit = parseInt(req.query.limit) || 5;
+    const search = req.query.search || "";
+    let sort = req.query.sort || "rating";
+    let category = req.query.cart || "All";
+
+    const categoryOptions = ["classic", "advanced", "minimalist"];
+
+    category === "All"
+      ? (genre = [...categoryOptions])
+      : (genre = req.query.genre.split(","));
+    req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
+
+    let sortBy = {};
+    if (sort[1]) {
+      sortBy[sort[0]] = sort[1];
+    } else {
+      sortBy[sort[0]] = "asc";
+    }
+
+    const items = await itemModel
+      .find({ name: { $regex: search, $options: "i" } })
+      .where("category")
+      .in([...category])
+      .sort(sortBy)
+      .skip(page * limit)
+      .limit(limit);
+
+    // const items = await itemModel.find();
     res.status(200).json(items);
   } catch (err) {
     console.log(err);
