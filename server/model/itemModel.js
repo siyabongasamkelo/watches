@@ -12,7 +12,7 @@ const itemSchema = mongoose.Schema({
     required: true,
   },
   category: {
-    type: String,
+    type: [String],
     required: true,
     minLength: 3,
     maxLength: 40,
