@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "styled-components";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import ShopPage from "./pages/ShopPage";
 
 function App() {
   const theme = {
@@ -36,6 +37,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/shop" element={<ShopPage />} />
         <Route path="/*" element={<HomePage />} />
       </Route>
     )
