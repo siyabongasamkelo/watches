@@ -6,11 +6,11 @@ export const ProductCardStyled = styled.div`
   height: 35vh;
   width: 43%;
   margin-left: 4%;
-  margin-top: 4%;
+  margin-top: 10%;
   @media only screen and (min-width: 992px) {
     height: 40vh;
-    width: 20%;
-    margin-left: 4%;
+    width: ${(props) => (props.isSpaceSmall ? "28%" : "20%")};
+    margin-top: ${(props) => (props.isSpaceSmall ? "7%" : "4%")};
   }
 `;
 
@@ -78,9 +78,9 @@ export const MyButton = styled.button`
   }
 `;
 
-const ProductCard = ({ image }) => {
+const ProductCard = ({ image, isSpaceSmall }) => {
   return (
-    <ProductCardStyled>
+    <ProductCardStyled isSpaceSmall={isSpaceSmall}>
       <ProductImage>
         <img src={image} alt="product" />
       </ProductImage>
