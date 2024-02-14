@@ -20,8 +20,15 @@ import classic from "../../assets/images/c1.jpg";
 import minimalist from "../../assets/images/m1.jpg";
 import minimalist2 from "../../assets/images/m2.jpg";
 import advanced from "../../assets/images/a1.jpg";
+import { useState } from "react";
 
 const Shop = () => {
+  const [sliderValues, setSliderValues] = useState([0, 100]); // Initial slider values
+
+  const handleSliderChange = (newValues) => {
+    setSliderValues(newValues);
+  };
+
   return (
     <ShopStyled>
       <Header />
@@ -29,7 +36,12 @@ const Shop = () => {
         <FilterAndSort>
           <SearchItem placeholder="search..." />
           <FilterHeader>Filter by price</FilterHeader>
-          <RangeSlider />
+          <RangeSlider
+            min={0}
+            max={100}
+            values={sliderValues}
+            onChange={handleSliderChange}
+          />
           <CategoriesHeader>Product categories</CategoriesHeader>
           <CategoriesItem>Classic</CategoriesItem>
           <CategoriesItem>Advanced</CategoriesItem>
