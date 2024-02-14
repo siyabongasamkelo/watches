@@ -9,7 +9,7 @@ export const ShopStyled = styled.section`
 `;
 
 export const ShopContent = styled.div`
-  height: 90vh;
+  /* height: 90vh; */
   display: flex;
 `;
 
@@ -20,7 +20,6 @@ export const FilterAndSort = styled.div`
 `;
 
 export const ShopItems = styled.div`
-  background-color: blue;
   height: 100%;
   width: 70%;
 `;
@@ -41,4 +40,20 @@ export const CategoriesHeader = styled(FilterHeader)`
 
 export const CategoriesItem = styled(GetHelpItems)`
   color: rgba(0, 0, 0, 0.7);
+`;
+
+export const SortBy = styled.div`
+  width: 20%;
+  margin-left: 80%;
+`;
+
+export const ItemContainer = styled.div`
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+`;
+export const PaginationContainer = styled.div`
+  height: 5vh;
+  background-color: red;
 `;
