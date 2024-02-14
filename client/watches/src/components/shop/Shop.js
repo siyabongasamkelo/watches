@@ -57,12 +57,12 @@ const Shop = () => {
             </Form.Select>
           </SortBy>
           <ItemContainer>
-            <ProductCard image={advanced} />
-            <ProductCard image={classic} />
-            <ProductCard image={minimalist} />
-            <ProductCard image={minimalist2} />
-            <ProductCard image={advanced} />
-            <ProductCard image={classic} />
+            <ProductCard image={advanced} isSpaceSmall={true} />
+            <ProductCard image={classic} isSpaceSmall={true} />
+            <ProductCard image={minimalist} isSpaceSmall={true} />
+            <ProductCard image={minimalist2} isSpaceSmall={true} />
+            <ProductCard image={advanced} isSpaceSmall={true} />
+            <ProductCard image={classic} isSpaceSmall={true} />
           </ItemContainer>
           <PaginationContainer></PaginationContainer>
         </ShopItems>
