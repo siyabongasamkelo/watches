@@ -9,33 +9,63 @@ export const ShopStyled = styled.section`
 `;
 
 export const ShopContent = styled.div`
-  /* height: 90vh; */
   display: flex;
+  /* @media only screen and (max-width: 600px) { */
+  flex-direction: column-reverse;
+  /* } */
+  @media only screen and (min-width: 992px) {
+    flex-direction: row;
+  }
 `;
 
 export const FilterAndSort = styled.div`
   height: 100%;
-  width: 30%;
   padding: 3%;
+  /* @media only screen and (max-width: 600px) { */
+  width: 100%;
+  /* } */
+  @media only screen and (min-width: 992px) {
+    width: 30%;
+  }
 `;
 
 export const ShopItems = styled.div`
   height: 100%;
-  width: 70%;
+  /* @media only screen and (max-width: 600px) { */
+  width: 100%;
+  /* } */
+  @media only screen and (min-width: 992px) {
+    width: 70%;
+  }
 `;
 
 export const SearchItem = styled(TextBox)`
   margin-top: 10%;
   width: 100%;
+  display: block;
+  /* @media only screen and (max-width: 600px) { */
+  margin-top: 5%;
+  /* } */
+  @media only screen and (min-width: 992px) {
+  }
 `;
 
 export const FilterHeader = styled(GetHelpHeader)`
   margin-top: 10%;
   text-align: left;
+  /* @media only screen and (max-width: 600px) { */
+  margin-top: 5%;
+  /* } */
 `;
 
 export const CategoriesHeader = styled(FilterHeader)`
-  margin-top: 25%;
+  /* @media only screen and (max-width: 600px) { */
+  margin-top: 10%;
+  margin-bottom: 5%;
+  /* } */
+  @media only screen and (min-width: 992px) {
+    margin-top: 25%;
+  }
 `;
 
 export const CategoriesItem = styled(GetHelpItems)`
@@ -43,8 +73,13 @@ export const CategoriesItem = styled(GetHelpItems)`
 `;
 
 export const SortBy = styled.div`
-  width: 20%;
-  margin-left: 80%;
+  width: 90%;
+  margin-left: 4%;
+
+  @media only screen and (min-width: 992px) {
+    margin-left: 80%;
+    width: 20%;
+  }
 `;
 
 export const ItemContainer = styled.div`
@@ -52,8 +87,18 @@ export const ItemContainer = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  @media only screen and (max-width: 600px) {
+  }
+  @media only screen and (min-width: 768px) {
+  }
+  @media only screen and (min-width: 992px) {
+  }
 `;
+
 export const PaginationContainer = styled.div`
   height: 5vh;
   background-color: red;
+  @media only screen and (max-width: 600px) {
+    margin-top: 5%;
+  }
 `;
