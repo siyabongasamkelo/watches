@@ -14,6 +14,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ShopPage from "./pages/ShopPage";
 import PreviewItemPage from "./pages/PreviewItemPage";
 import AddItemPage from "./pages/AddItemPage";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
   const theme = {
@@ -32,6 +33,8 @@ function App() {
     },
   };
 
+  const queryClient = new QueryClient();
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
@@ -48,10 +51,12 @@ function App() {
   );
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <ToastContainer />
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <ToastContainer />
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </QueryClientProvider>
     </>
   );
 }
