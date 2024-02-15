@@ -8,6 +8,8 @@ import {
 
 export const RegisterStyled = styled.section`
   width: 100%;
+  font-family: "Great Vibes", cursive;
+  font-family: "Kalam", cursive;
 `;
 
 export const RegisterContent = styled.div`
