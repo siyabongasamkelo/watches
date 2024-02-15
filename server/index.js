@@ -4,6 +4,7 @@ import helmet from "helmet";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
+import fileupload from "express-fileupload";
 import userRoutes from "./routes/userRoutes.js";
 import itemRoutes from "./routes/itemRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
@@ -15,6 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
+app.use(fileupload({ useTempFiles: true }));
 
 //routes
 app.use("/user", userRoutes);
