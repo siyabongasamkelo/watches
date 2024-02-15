@@ -10,10 +10,7 @@ const createItem = async (req, res) => {
       return res.status(400).json("Please fill all the fields");
 
     const imageUpload = await cloudinary.uploader.upload(
-      image.image.tempFilePath,
-      {
-        upload_preset: "watches",
-      }
+      image.image.tempFilePath
     );
 
     const imageUrl = imageUpload.secure_url;
@@ -23,6 +20,7 @@ const createItem = async (req, res) => {
       category,
       image: imageUrl,
       category,
+      quantity,
       description,
     });
 
