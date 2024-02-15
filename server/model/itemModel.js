@@ -17,6 +17,14 @@ const itemSchema = mongoose.Schema({
     minLength: 3,
     maxLength: 40,
   },
+  quantity: {
+    type: Number,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
   image: {
     type: String,
     required: true,
