@@ -3,10 +3,10 @@ import { cloudinary } from "../utils/cloudinary.js";
 
 const createItem = async (req, res) => {
   try {
-    const { name, price, category } = req.body;
+    const { name, price, category, quantity, description } = req.body;
     const image = req.files;
 
-    if ((!name, !price, !category, !image))
+    if (!name || !price || !category || !image || !quantity || !description)
       return res.status(400).json("Please fill all the fields");
 
     const imageUpload = await cloudinary.uploader.upload(
@@ -17,12 +17,13 @@ const createItem = async (req, res) => {
     );
 
     const imageUrl = imageUpload.secure_url;
-
     const newItem = new itemModel({
       name,
       price,
       category,
       image: imageUrl,
+      category,
+      description,
     });
 
     await newItem.save();
