@@ -12,6 +12,8 @@ import { ThemeProvider } from "styled-components";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ShopPage from "./pages/ShopPage";
+import PreviewItemPage from "./pages/PreviewItemPage";
+import AddItemPage from "./pages/AddItemPage";
 
 function App() {
   const theme = {
@@ -38,6 +40,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="/shop/:itemId" element={<PreviewItemPage />} />
+        <Route path="/add/item" element={<AddItemPage />} />
         <Route path="/*" element={<HomePage />} />
       </Route>
     )
