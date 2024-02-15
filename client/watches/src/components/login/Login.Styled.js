@@ -5,6 +5,8 @@ import { HeroParagraph, MyButton } from "../home/Home.styled";
 
 export const LoginStyled = styled.section`
   width: 100%;
+  font-family: "Great Vibes", cursive;
+  font-family: "Kalam", cursive;
 `;
 
 export const LoginContent = styled.div`
