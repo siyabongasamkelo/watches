@@ -21,7 +21,17 @@ import minimalist from "../../assets/images/m1.jpg";
 import minimalist2 from "../../assets/images/m2.jpg";
 import advanced from "../../assets/images/a1.jpg";
 import { useState } from "react";
+import { useQuery } from "react-query";
+import { baseUrl, getRequest } from "../../utils/Services";
+import { toast, ToastContainer } from "react-toastify";
 
+const showToastErrorMessage = (message) => {
+  toast.error(message);
+};
+
+const successToastMessage = (message) => {
+  toast.success(message);
+};
 const Shop = () => {
   const [sliderValues, setSliderValues] = useState([0, 100]); // Initial slider values
 
@@ -29,9 +39,23 @@ const Shop = () => {
     setSliderValues(newValues);
   };
 
+  const fetchItems = async () => {
+    try {
+      const items = await getRequest(`${baseUrl}/item/get`);
+
+      return items.data.json();
+    } catch (err) {
+      console.log(err);
+      showToastErrorMessage("there was a problem while fetching items");
+    }
+  };
+
+  const { data, status } = useQuery("items", fetchItems);
+  console.log(data);
   return (
     <ShopStyled>
       <Header />
+      <ToastContainer />
       <ShopContent>
         <FilterAndSort>
           <SearchItem placeholder="search..." />
