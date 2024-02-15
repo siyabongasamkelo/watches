@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { TextBox } from "../header/Header.styled";
 
 export const FooterStyled = styled.footer`
-  height: 70vh;
-  margin-top: 100px;
+  height: 85vh;
+  margin-top: 150px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
