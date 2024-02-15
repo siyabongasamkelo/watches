@@ -5,6 +5,8 @@ import {
   AddItemHeader,
   AddItemInput,
   AddItemStyled,
+  Label,
+  TextArea,
 } from "./AddItem.styled";
 import { useFormik } from "formik";
 import { baseUrl, postRequest } from "../../utils/Services";
@@ -12,7 +14,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { itemSchema } from "../../validations/ItemValidation";
-import { ErrorLabel } from "../login/Login.Styled";
+import { ErrorLabel, SubmitButton } from "../login/Login.Styled";
+import Form from "react-bootstrap/Form";
 
 const showToastErrorMessage = (message) => {
   toast.error(message);
@@ -101,26 +104,33 @@ const AddItem = () => {
           </div>
 
           <div>
-            <AddItemInput
-              placeholder="item category..."
+            <Form.Select
+              aria-label="Default select example"
               name="category"
               value={formik.values.category}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-            />
+            >
+              <option>Item Category</option>
+              <option value="advanced">Advanced</option>
+              <option value="minimal">Minimal</option>
+              <option value="classic">Classic</option>
+            </Form.Select>
+
             {formik?.errors && (
               <ErrorLabel>{formik?.errors?.category}</ErrorLabel>
             )}
           </div>
 
           <div>
-            <AddItemInput
+            <TextArea
               placeholder="item description..."
               name="description"
               value={formik.values.description}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-            />
+            ></TextArea>
+
             {formik?.errors && (
               <ErrorLabel>{formik?.errors?.description}</ErrorLabel>
             )}
@@ -128,6 +138,7 @@ const AddItem = () => {
 
           <div>
             <AddItemInput
+              type="number"
               placeholder="item quantity..."
               name="quantity"
               value={formik.values.quantity}
@@ -140,6 +151,8 @@ const AddItem = () => {
           </div>
 
           <div>
+            <Label>Item Image: </Label>
+            <br></br>
             <input
               type="file"
               name="image"
@@ -149,6 +162,9 @@ const AddItem = () => {
             />
             {formik?.errors && <ErrorLabel>{formik?.errors?.image}</ErrorLabel>}
           </div>
+          <SubmitButton type="submit">
+            {loading ? "submitting..." : "submit"}
+          </SubmitButton>
         </AddItemForm>
       </AddItemContent>
     </AddItemStyled>
