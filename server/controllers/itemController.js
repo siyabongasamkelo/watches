@@ -55,9 +55,11 @@ const getItems = async (req, res) => {
 
     const categoryOptions = ["classic", "advanced", "minimalist"];
 
+    console.log(req.query);
+
     category === "All"
-      ? (genre = [...categoryOptions])
-      : (genre = req.query.genre.split(","));
+      ? (category = [...categoryOptions])
+      : (category = req.query.category.split(","));
     req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
 
     let sortBy = {};
