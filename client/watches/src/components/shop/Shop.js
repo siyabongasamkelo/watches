@@ -29,11 +29,15 @@ const showToastErrorMessage = (message) => {
   toast.error(message);
 };
 
-const successToastMessage = (message) => {
-  toast.success(message);
-};
+// const successToastMessage = (message) => {
+//   toast.success(message);
+// };
 const Shop = () => {
   const [sliderValues, setSliderValues] = useState([0, 100]); // Initial slider values
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("");
+  const [category, setCategory] = useState("");
+  const [page, setPage] = useState(1);
 
   const handleSliderChange = (newValues) => {
     setSliderValues(newValues);
@@ -41,9 +45,11 @@ const Shop = () => {
 
   const fetchItems = async () => {
     try {
-      const items = await getRequest(`${baseUrl}/item/get`);
+      const items = await getRequest(
+        `${baseUrl}/item/get?page=${page}&limit=6&search=${search}&sort=${sort}&category=${category}`
+      );
 
-      return items.data.json();
+      return items.data;
     } catch (err) {
       console.log(err);
       showToastErrorMessage("there was a problem while fetching items");
@@ -58,7 +64,12 @@ const Shop = () => {
       <ToastContainer />
       <ShopContent>
         <FilterAndSort>
-          <SearchItem placeholder="search..." />
+          <SearchItem
+            placeholder="search..."
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+          />
           <FilterHeader>Filter by price</FilterHeader>
           <RangeSlider
             min={0}
@@ -67,17 +78,38 @@ const Shop = () => {
             onChange={handleSliderChange}
           />
           <CategoriesHeader>Product categories</CategoriesHeader>
-          <CategoriesItem>Classic</CategoriesItem>
-          <CategoriesItem>Advanced</CategoriesItem>
-          <CategoriesItem>Minimal</CategoriesItem>
+          <CategoriesItem
+            onClick={() => {
+              setCategory("classic");
+            }}
+          >
+            Classic
+          </CategoriesItem>
+          <CategoriesItem
+            onClick={() => {
+              setCategory("advanced");
+            }}
+          >
+            Advanced
+          </CategoriesItem>
+          <CategoriesItem
+            onClick={() => {
+              setCategory("minimal");
+            }}
+          >
+            Minimal
+          </CategoriesItem>
         </FilterAndSort>
         <ShopItems>
           <SortBy>
-            <Form.Select aria-label="Default select example">
+            <Form.Select
+              aria-label="Default select example"
+              onChange={(e) => setSort(e.target.value)}
+            >
               <option>Categoies</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <option value="rating">Rating</option>
+              <option value="price">Price</option>
+              <option value="date">Date</option>
             </Form.Select>
           </SortBy>
           <ItemContainer>
