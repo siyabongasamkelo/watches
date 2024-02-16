@@ -20,7 +20,7 @@ import classic from "../../assets/images/c1.jpg";
 import minimalist from "../../assets/images/m1.jpg";
 import minimalist2 from "../../assets/images/m2.jpg";
 import advanced from "../../assets/images/a1.jpg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { baseUrl, getRequest } from "../../utils/Services";
 import { toast, ToastContainer } from "react-toastify";
@@ -36,7 +36,7 @@ const Shop = () => {
   const [sliderValues, setSliderValues] = useState([0, 100]); // Initial slider values
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("All");
   const [page, setPage] = useState(1);
 
   const handleSliderChange = (newValues) => {
@@ -56,8 +56,14 @@ const Shop = () => {
     }
   };
 
-  const { data, status } = useQuery("items", fetchItems);
+  const queryKey = ["items", { sort, category, search, page }];
+  const { data, status, refetch } = useQuery(queryKey, fetchItems);
   console.log(data);
+
+  useEffect(() => {
+    refetch();
+  }, [sort, category, search, page, refetch]);
+
   return (
     <ShopStyled>
       <Header />
@@ -109,16 +115,20 @@ const Shop = () => {
               <option>Categoies</option>
               <option value="rating">Rating</option>
               <option value="price">Price</option>
-              <option value="date">Date</option>
+              <option value="createdAt">Date</option>
             </Form.Select>
           </SortBy>
           <ItemContainer>
-            <ProductCard image={advanced} isSpaceSmall={true} />
+            {/* <ProductCard image={advanced} isSpaceSmall={true} />
             <ProductCard image={classic} isSpaceSmall={true} />
             <ProductCard image={minimalist} isSpaceSmall={true} />
             <ProductCard image={minimalist2} isSpaceSmall={true} />
             <ProductCard image={advanced} isSpaceSmall={true} />
-            <ProductCard image={classic} isSpaceSmall={true} />
+            <ProductCard image={classic} isSpaceSmall={true} /> */}
+
+            {data?.map((item) => (
+              <ProductCard image={item?.image} isSpaceSmall={true} />
+            ))}
           </ItemContainer>
           <PaginationContainer></PaginationContainer>
         </ShopItems>
