@@ -16,3 +16,8 @@ export const getRequest = async (url) => {
 
   return response;
 };
+
+export const currencyFormatter = new Intl.NumberFormat("en-ZA", {
+  style: "currency",
+  currency: "ZAR",
+});
