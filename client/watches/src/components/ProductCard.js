@@ -1,6 +1,7 @@
 import { Stack } from "react-bootstrap";
 import styled from "styled-components";
 import { BagFill } from "react-bootstrap-icons";
+import { currencyFormatter } from "../utils/Services";
 
 export const ProductCardStyled = styled.div`
   height: 35vh;
@@ -79,6 +80,9 @@ export const MyButton = styled.button`
 `;
 
 const ProductCard = ({ image, isSpaceSmall }) => {
+  const amount = 1234.56;
+  const formattedAmount = currencyFormatter.format(amount);
+
   return (
     <ProductCardStyled isSpaceSmall={isSpaceSmall}>
       <ProductImage>
@@ -90,7 +94,7 @@ const ProductCard = ({ image, isSpaceSmall }) => {
         direction="horizontal"
         className=" d-flex justify-content-between align-items-center"
       >
-        <ProductPrice>$100.00</ProductPrice>
+        <ProductPrice>{formattedAmount}</ProductPrice>
         <MyButton>
           add to cart
           <BagFill style={{ marginLeft: "10px" }} />
