@@ -20,6 +20,34 @@ export const FilterAndSort = styled.div`
   height: 100%;
   padding: 3%;
   width: 100%;
+
+  /* style for the stupid slider thing */
+
+  /* Styles for the slider component */
+  .slider {
+    height: 10px;
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+  }
+
+  /* Styles for the slider thumb */
+  .slider .thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: #007bff;
+    cursor: grab;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Styles for the slider active state */
+  .slider .thumb.active {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+
   @media only screen and (min-width: 992px) {
     width: 30%;
   }
