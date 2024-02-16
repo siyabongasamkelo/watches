@@ -51,10 +51,14 @@ const getItems = async (req, res) => {
     const page = parseInt(req.query.page) - 1 || 0;
     const limit = parseInt(req.query.limit) || 5;
     const search = req.query.search || "";
+    const minPrice = req.query.minPrice || 0;
+    const maxPrice = req.query.maxPrice || 10000;
     let sort = req.query.sort || "rating";
     let category = req.query.category || "All";
 
     const categoryOptions = ["classic", "advanced", "minimal"];
+
+    console.log("min", minPrice, "max", maxPrice, "category", category);
 
     category === "All"
       ? (category = [...categoryOptions])
@@ -75,10 +79,24 @@ const getItems = async (req, res) => {
       .in([...category])
       .sort(sortBy)
       .skip(page * limit)
-      .limit(limit);
+      .limit(limit)
+      .where({
+        $expr: {
+          $and: [
+            { $gte: ["$price", minPrice] },
+            { $lte: ["$price", maxPrice] },
+          ],
+        },
+      });
 
-    // const items = await itemModel.find();
-    res.status(200).json(items);
+    const total = await itemModel.countDocuments({
+      category: { $in: [...category] },
+      name: { $regex: search, $options: "i" },
+    });
+
+    // db.items.find().where('price').gte(minPrice).lte(maxPrice)
+
+    res.status(200).json({ items, total, page: page + 1 });
   } catch (err) {
     console.log(err);
     res.status(400).json(err);
