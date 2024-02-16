@@ -58,6 +58,10 @@ export const CategoriesHeader = styled(FilterHeader)`
 
 export const CategoriesItem = styled(GetHelpItems)`
   color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  &:hover {
+    color: ${(props) => props.theme.light.primary};
+  }
 `;
 
 export const SortBy = styled.div`
