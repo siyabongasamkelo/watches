@@ -21,6 +21,7 @@ const createItem = async (req, res) => {
       image: imageUrl,
       category,
       quantity,
+      rating: 0,
       description,
     });
 
@@ -51,15 +52,14 @@ const getItems = async (req, res) => {
     const limit = parseInt(req.query.limit) || 5;
     const search = req.query.search || "";
     let sort = req.query.sort || "rating";
-    let category = req.query.cart || "All";
+    let category = req.query.category || "All";
 
-    const categoryOptions = ["classic", "advanced", "minimalist"];
-
-    console.log(req.query);
+    const categoryOptions = ["classic", "advanced", "minimal"];
 
     category === "All"
       ? (category = [...categoryOptions])
       : (category = req.query.category.split(","));
+
     req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
 
     let sortBy = {};
