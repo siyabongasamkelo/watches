@@ -10,6 +10,7 @@ import {
   PreviewContainer,
   PreviewParagraph,
   PreviewStyled,
+  ReviewsAndRelatedProducts,
 } from "./PreviewItemStyled";
 import { MyButton } from "../ProductCard";
 import { BagFill } from "react-bootstrap-icons";
@@ -19,6 +20,10 @@ import { baseUrl, currencyFormatter, getRequest } from "../../utils/Services";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import Spinner from "react-bootstrap/Spinner";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+import RelatedProducts from "../relatedProducts/RelatedProducts";
+import Reviews from "../reviews/Reviews";
 
 const showToastErrorMessage = (message) => {
   toast.error(message);
@@ -119,6 +124,20 @@ const PreviewItem = () => {
           </ItemDetails>
         </PreviewContainer>
       )}
+      <ReviewsAndRelatedProducts>
+        <Tabs
+          defaultActiveKey="profile"
+          id="uncontrolled-tab-example"
+          className="mb-3"
+        >
+          <Tab eventKey="related items" title="related products">
+            <RelatedProducts />
+          </Tab>
+          <Tab eventKey="reviews" title="reviews">
+            <Reviews />
+          </Tab>
+        </Tabs>
+      </ReviewsAndRelatedProducts>
     </PreviewStyled>
   );
 };
