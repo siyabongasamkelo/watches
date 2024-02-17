@@ -14,9 +14,6 @@ export const PreviewContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 40px;
-  /* @media only screen and (max-width: 600px) {
-    flex-direction: column;
-  } */
   @media only screen and (min-width: 992px) {
     flex-direction: row;
     margin-top: 150px;
@@ -24,15 +21,8 @@ export const PreviewContainer = styled.div`
 `;
 
 export const ImageHolder = styled.div`
-  /* width: 50%;
-  height: 90vh;
-  img {
-    height: 65%;
-    width: 90%;
-    object-fit: cover;
-  } */
   width: 100%;
-  height: 50vh;
+  height: 45vh;
   img {
     height: 100%;
     width: 100%;
@@ -49,8 +39,6 @@ export const ImageHolder = styled.div`
 `;
 
 export const ItemDetails = styled.div`
-  /* width: 50%;
-  height: 90vh; */
   height: 50vh;
   @media only screen and (min-width: 992px) {
     width: 50%;
@@ -79,7 +67,11 @@ export const PreviewParagraph = styled(HeroParagraph)`
 `;
 
 export const AddToCart = styled(MyButton)`
-  @media only screen and (max-width: 600px) {
+  /* @media only screen and (max-width: 600px) {
     width: 100%;
+  } */
+  width: 100%;
+  @media only screen and (min-width: 992px) {
+    width: auto;
   }
 `;
