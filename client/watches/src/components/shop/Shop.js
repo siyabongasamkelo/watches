@@ -21,6 +21,7 @@ import { useQuery } from "react-query";
 import { baseUrl, currencyFormatter, getRequest } from "../../utils/Services";
 import { toast, ToastContainer } from "react-toastify";
 import Pagination from "../Pagination";
+import Spinner from "react-bootstrap/Spinner";
 
 const showToastErrorMessage = (message) => {
   toast.error(message);
@@ -41,7 +42,6 @@ const Shop = () => {
         `${baseUrl}/item/get?page=${page}&limit=6&search=${search}&sort=${sort}&category=${category}&minPrice=${values[0]}&maxPrice=${values[1]}`
       );
 
-      // return items?.data?.items;
       return items?.data;
     } catch (err) {
       console.log(err);
@@ -55,96 +55,120 @@ const Shop = () => {
   const queryKey = ["items", { sort, category, search, page }];
   const { data, status, refetch } = useQuery(queryKey, fetchItems);
 
+  //pagination functions
+  const pageChange = (change) => {
+    change === "next"
+      ? setPage((prevPage) => prevPage + 1)
+      : setPage((prevPage) => prevPage - 1);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setPage(pageNumber);
+  };
+
   useEffect(() => {
     refetch();
   }, [sort, category, search, page, refetch, values, setValues]);
 
-  const handlePageChange = (page) => {
-    // Fetch paginated data from the server based on the selected page
-    // Update the UI with the new data
-  };
+  if (status === "error")
+    showToastErrorMessage("there was a problem while fetching items");
 
   return (
     <ShopStyled>
       <Header />
       <ToastContainer />
-      <ShopContent>
-        <FilterAndSort>
-          <SearchItem
-            placeholder="search..."
-            onChange={(e) => {
-              setSearch(e.target.value);
-            }}
-          />
-          <FilterHeader>Filter by price</FilterHeader>
-
-          <Slider
-            className="slider"
-            value={values}
-            onChange={handleChange}
-            min={0}
-            max={10000}
-          />
-
-          <p>min : {minPrice}</p>
-          <p>max : {maxPrice}</p>
-
-          <CategoriesHeader>Product categories</CategoriesHeader>
-          <CategoriesItem
-            onClick={() => {
-              setCategory("All");
-            }}
-          >
-            All
-          </CategoriesItem>
-          <CategoriesItem
-            onClick={() => {
-              setCategory("classic");
-            }}
-          >
-            Classic
-          </CategoriesItem>
-          <CategoriesItem
-            onClick={() => {
-              setCategory("advanced");
-            }}
-          >
-            Advanced
-          </CategoriesItem>
-          <CategoriesItem
-            onClick={() => {
-              setCategory("minimal");
-            }}
-          >
-            Minimal
-          </CategoriesItem>
-        </FilterAndSort>
-        <ShopItems>
-          <SortBy>
-            <Form.Select
-              aria-label="Default select example"
-              onChange={(e) => setSort(e.target.value)}
-            >
-              <option>Categoies</option>
-              <option value="rating">Rating</option>
-              <option value="price">Price</option>
-              <option value="createdAt">Date</option>
-            </Form.Select>
-          </SortBy>
-          <ItemContainer>
-            {data?.items?.map((item) => (
-              <ProductCard image={item?.image} isSpaceSmall={true} />
-            ))}
-          </ItemContainer>
-          <PaginationContainer>
-            <Pagination
-              totalItems={data?.items?.length}
-              itemsPerPage={6}
-              onPageChange={data?.page}
+      {status === "loading" ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "70vh",
+          }}
+        >
+          <Spinner animation="border" />
+        </div>
+      ) : (
+        <ShopContent>
+          <FilterAndSort>
+            <SearchItem
+              placeholder="search..."
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
             />
-          </PaginationContainer>
-        </ShopItems>
-      </ShopContent>
+            <FilterHeader>Filter by price</FilterHeader>
+
+            <Slider
+              className="slider"
+              value={values}
+              onChange={handleChange}
+              min={0}
+              max={10000}
+            />
+
+            <p>min : {minPrice}</p>
+            <p>max : {maxPrice}</p>
+
+            <CategoriesHeader>Product categories</CategoriesHeader>
+            <CategoriesItem
+              onClick={() => {
+                setCategory("All");
+              }}
+            >
+              All
+            </CategoriesItem>
+            <CategoriesItem
+              onClick={() => {
+                setCategory("classic");
+              }}
+            >
+              Classic
+            </CategoriesItem>
+            <CategoriesItem
+              onClick={() => {
+                setCategory("advanced");
+              }}
+            >
+              Advanced
+            </CategoriesItem>
+            <CategoriesItem
+              onClick={() => {
+                setCategory("minimal");
+              }}
+            >
+              Minimal
+            </CategoriesItem>
+          </FilterAndSort>
+          <ShopItems>
+            <SortBy>
+              <Form.Select
+                aria-label="Default select example"
+                onChange={(e) => setSort(e.target.value)}
+              >
+                <option>Categoies</option>
+                <option value="rating">Rating</option>
+                <option value="price">Price</option>
+                <option value="createdAt">Date</option>
+              </Form.Select>
+            </SortBy>
+            <ItemContainer>
+              {data?.items?.map((item) => (
+                <ProductCard image={item?.image} isSpaceSmall={true} />
+              ))}
+            </ItemContainer>
+            <PaginationContainer>
+              <Pagination
+                totalItems={data?.total}
+                itemsPerPage={6}
+                pageChange={pageChange}
+                currentPage={page}
+                handlePageChange={handlePageChange}
+              />
+            </PaginationContainer>
+          </ShopItems>
+        </ShopContent>
+      )}
     </ShopStyled>
   );
 };
