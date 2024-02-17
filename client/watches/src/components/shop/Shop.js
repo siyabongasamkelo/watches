@@ -154,7 +154,11 @@ const Shop = () => {
             </SortBy>
             <ItemContainer>
               {data?.items?.map((item) => (
-                <ProductCard image={item?.image} isSpaceSmall={true} />
+                <ProductCard
+                  image={item?.image}
+                  isSpaceSmall={true}
+                  item={item}
+                />
               ))}
             </ItemContainer>
             <PaginationContainer>
