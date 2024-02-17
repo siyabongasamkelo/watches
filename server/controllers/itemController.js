@@ -58,8 +58,6 @@ const getItems = async (req, res) => {
 
     const categoryOptions = ["classic", "advanced", "minimal"];
 
-    console.log("min", minPrice, "max", maxPrice, "category", category);
-
     category === "All"
       ? (category = [...categoryOptions])
       : (category = req.query.category.split(","));
@@ -94,8 +92,7 @@ const getItems = async (req, res) => {
       name: { $regex: search, $options: "i" },
     });
 
-    // db.items.find().where('price').gte(minPrice).lte(maxPrice)
-
+    console.log(total);
     res.status(200).json({ items, total, page: page + 1 });
   } catch (err) {
     console.log(err);
