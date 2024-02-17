@@ -16,6 +16,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
@@ -129,7 +130,14 @@ const Register = () => {
             Already have an account <Link to={"/login"}>Login</Link> now
           </LoginNowText>
           <SubmitButton type="submit">
-            {loading ? "submitting..." : "register"}
+            {loading ? (
+              <div className=" d-flex justify-content-center align-items-center">
+                <Spinner animation="border" role="status" />
+                <span style={{ marginLeft: "10px" }}>Loading...</span>
+              </div>
+            ) : (
+              "Register"
+            )}
           </SubmitButton>
         </RegisterForm>
       </RegisterContent>
