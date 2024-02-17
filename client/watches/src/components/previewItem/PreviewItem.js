@@ -13,31 +13,41 @@ import {
 import testImage from "../../assets/images/a1.jpg";
 import { MyButton } from "../ProductCard";
 import { BagFill } from "react-bootstrap-icons";
+import { useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { baseUrl, currencyFormatter, getRequest } from "../../utils/Services";
 
 const PreviewItem = () => {
+  let { itemId } = useParams();
+
+  const getItem = async () => {
+    const item = await getRequest(`${baseUrl}/item/get/${itemId}`);
+    return item.data;
+  };
+
+  const queryKey = ["item", { itemId }];
+  const { data, status, refetch } = useQuery(queryKey, getItem);
+  const formattedAmount = currencyFormatter.format(data?.price);
+  console.log(data);
+
   return (
     <PreviewStyled>
       <Header />
       <PreviewContainer>
         <ImageHolder>
-          <img src={testImage} alt="item" />
+          <img src={data?.image} alt="item" />
         </ImageHolder>
         <ItemDetails>
-          <ItemName>Classic Watch</ItemName>
-          <ItemPrice>R 123213.00</ItemPrice>
+          <ItemName>{data?.name}</ItemName>
+          <ItemPrice>{formattedAmount}</ItemPrice>
 
-          <ItemCategory>Classic</ItemCategory>
+          <ItemCategory>{data?.category}</ItemCategory>
           <ItemQuantity>
             <PreviewParagraph>Quantity :</PreviewParagraph>
             <MyButton>+</MyButton> 1 <MyButton>-</MyButton>
           </ItemQuantity>
           <div>
-            <PreviewParagraph>
-              Enhance your look with the limited edition classic golden watch
-              from the 19th century designed by siya himself..Enhance your look
-              with the limited edition classic golden watch from the 19th
-              century designed by siya himself..
-            </PreviewParagraph>
+            <PreviewParagraph>{data?.description}</PreviewParagraph>
           </div>
           <div className=" d-flex justify-content-between">
             <strong>
