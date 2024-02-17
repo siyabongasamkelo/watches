@@ -2,6 +2,7 @@ import { Stack } from "react-bootstrap";
 import styled from "styled-components";
 import { BagFill } from "react-bootstrap-icons";
 import { currencyFormatter } from "../utils/Services";
+import { useNavigate } from "react-router-dom";
 
 export const ProductCardStyled = styled.div`
   height: 35vh;
@@ -79,17 +80,23 @@ export const MyButton = styled.button`
   }
 `;
 
-const ProductCard = ({ image, isSpaceSmall }) => {
-  const amount = 1234.56;
-  const formattedAmount = currencyFormatter.format(amount);
+const ProductCard = ({ item, isSpaceSmall }) => {
+  const navigate = useNavigate();
+  const goToPreviewItem = () => {
+    navigate(`/shop/${item._id}`);
+  };
+  const formattedAmount = currencyFormatter.format(item.price);
 
   return (
-    <ProductCardStyled isSpaceSmall={isSpaceSmall}>
+    <ProductCardStyled
+      isSpaceSmall={isSpaceSmall}
+      onClick={() => goToPreviewItem()}
+    >
       <ProductImage>
-        <img src={image} alt="product" />
+        <img src={item.image} alt="product" />
       </ProductImage>
-      <ProductCategory>Luxurious Watches</ProductCategory>
-      <ProductName>Classic Watches</ProductName>
+      <ProductCategory>{item.category}</ProductCategory>
+      <ProductName>{item.name}</ProductName>
       <Stack
         direction="horizontal"
         className=" d-flex justify-content-between align-items-center"
