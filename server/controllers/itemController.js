@@ -92,7 +92,6 @@ const getItems = async (req, res) => {
       name: { $regex: search, $options: "i" },
     });
 
-    console.log(total);
     res.status(200).json({ items, total, page: page + 1 });
   } catch (err) {
     console.log(err);
