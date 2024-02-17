@@ -117,7 +117,6 @@ export const ItemContainer = styled.div`
 
 export const PaginationContainer = styled.div`
   height: 5vh;
-  background-color: red;
   margin-top: 8%;
   @media only screen and (max-width: 600px) {
     margin-top: 10%;
