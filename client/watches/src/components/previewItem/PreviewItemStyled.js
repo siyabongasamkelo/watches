@@ -29,9 +29,9 @@ export const ImageHolder = styled.div`
   }
   @media only screen and (min-width: 992px) {
     width: 50%;
-    height: 90vh;
+    height: 55vh;
     img {
-      height: 65%;
+      height: 100%;
       width: 90%;
       object-fit: cover;
     }
@@ -41,8 +41,8 @@ export const ImageHolder = styled.div`
 export const ItemDetails = styled.div`
   height: 50vh;
   @media only screen and (min-width: 992px) {
-    width: 50%;
-    height: 90vh;
+    width: 55%;
+    height: 50vh;
   }
 `;
 
@@ -67,11 +67,12 @@ export const PreviewParagraph = styled(HeroParagraph)`
 `;
 
 export const AddToCart = styled(MyButton)`
-  /* @media only screen and (max-width: 600px) {
-    width: 100%;
-  } */
   width: 100%;
   @media only screen and (min-width: 992px) {
     width: auto;
   }
+`;
+
+export const ReviewsAndRelatedProducts = styled.div`
+  margin-top: 80px;
 `;
