@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { Li, PaginatioButton, Ul } from "./Pagination.styled";
 
-function Pagination({ totalItems, itemsPerPage, onPageChange }) {
-  const [currentPage, setCurrentPage] = useState(1);
+function Pagination({
+  totalItems,
+  itemsPerPage,
+  pageChange,
+  currentPage,
+  handlePageChange,
+}) {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   // Generate an array of page numbers for the pagination component
@@ -10,36 +15,33 @@ function Pagination({ totalItems, itemsPerPage, onPageChange }) {
     pageNumbers.push(i);
   }
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    onPageChange(page);
-  };
-
   return (
     <div>
-      <ul className="pagination">
+      <Ul className="pagination">
         {currentPage > 1 && (
-          <li>
-            <button onClick={() => handlePageChange(currentPage - 1)}>
+          <Li>
+            <PaginatioButton onClick={() => pageChange("previous")}>
               Previous
-            </button>
-          </li>
+            </PaginatioButton>
+          </Li>
         )}
 
         {pageNumbers.map((page) => (
-          <li key={page} className={page === currentPage ? "active" : ""}>
-            <button onClick={() => handlePageChange(page)}>{page}</button>
-          </li>
+          <Li key={page} className={page === currentPage ? "active" : ""}>
+            <PaginatioButton onClick={() => handlePageChange(page)}>
+              {page}
+            </PaginatioButton>
+          </Li>
         ))}
 
         {currentPage < totalPages && (
-          <li>
-            <button onClick={() => handlePageChange(currentPage + 1)}>
+          <Li>
+            <PaginatioButton onClick={() => pageChange("next")}>
               Next
-            </button>
-          </li>
+            </PaginatioButton>
+          </Li>
         )}
-      </ul>
+      </Ul>
     </div>
   );
 }
