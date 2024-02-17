@@ -18,6 +18,7 @@ import { baseUrl, postRequest } from "../../utils/Services";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
+import Spinner from "react-bootstrap/Spinner";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -113,7 +114,14 @@ const Login = () => {
           </RegisterNowText>
 
           <SubmitButton type="submit">
-            {loading ? "submitting..." : "login"}
+            {loading ? (
+              <div className=" d-flex justify-content-center align-items-center">
+                <Spinner animation="border" role="status" />
+                <span style={{ marginLeft: "10px" }}>Loading...</span>
+              </div>
+            ) : (
+              "Login"
+            )}
           </SubmitButton>
         </LoginForm>
       </LoginContent>
