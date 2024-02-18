@@ -134,7 +134,7 @@ const PreviewItem = () => {
             <RelatedProducts />
           </Tab>
           <Tab eventKey="reviews" title="reviews">
-            <Reviews />
+            <Reviews itemId={itemId} />
           </Tab>
         </Tabs>
       </ReviewsAndRelatedProducts>
