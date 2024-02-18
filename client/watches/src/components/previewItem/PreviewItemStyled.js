@@ -26,6 +26,7 @@ export const ImageHolder = styled.div`
   img {
     height: 100%;
     width: 100%;
+    border-radius: 20px;
   }
   @media only screen and (min-width: 992px) {
     width: 50%;
