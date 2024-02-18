@@ -83,9 +83,9 @@ export const MyButton = styled.button`
 const ProductCard = ({ item, isSpaceSmall }) => {
   const navigate = useNavigate();
   const goToPreviewItem = () => {
-    navigate(`/shop/${item._id}`);
+    navigate(`/shop/${item?._id}`);
   };
-  const formattedAmount = currencyFormatter.format(item.price);
+  const formattedAmount = currencyFormatter.format(item?.price);
 
   return (
     <ProductCardStyled
@@ -93,10 +93,10 @@ const ProductCard = ({ item, isSpaceSmall }) => {
       onClick={() => goToPreviewItem()}
     >
       <ProductImage>
-        <img src={item.image} alt="product" />
+        <img src={item?.image} alt="product" />
       </ProductImage>
-      <ProductCategory>{item.category}</ProductCategory>
-      <ProductName>{item.name}</ProductName>
+      <ProductCategory>{item?.category}</ProductCategory>
+      <ProductName>{item?.name}</ProductName>
       <Stack
         direction="horizontal"
         className=" d-flex justify-content-between align-items-center"
