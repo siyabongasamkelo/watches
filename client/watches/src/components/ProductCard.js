@@ -9,6 +9,7 @@ export const ProductCardStyled = styled.div`
   width: 43%;
   margin-left: 4%;
   margin-top: 10%;
+  cursor: pointer;
   @media only screen and (min-width: 992px) {
     height: 40vh;
     width: ${(props) => (props.isSpaceSmall ? "28%" : "20%")};
