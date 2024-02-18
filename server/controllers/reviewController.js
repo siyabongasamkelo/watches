@@ -24,7 +24,9 @@ const createReview = async (req, res) => {
 
 const getReview = async (req, res) => {
   try {
-    const reviews = await reviewModel.find();
+    const { itemId } = req.params;
+
+    const reviews = await reviewModel.find({ itemId });
     res.status(200).json(reviews);
   } catch (err) {
     console.log(err);
