@@ -4,27 +4,48 @@ import {
   PopularProductsStyled,
 } from "./PopularProducts.styled";
 import { Container } from "react-bootstrap";
-import advanced from "../../assets/images/a1.jpg";
-import classic from "../../assets/images/c1.jpg";
-import minimalist from "../../assets/images/m1.jpg";
-import minimalist2 from "../../assets/images/m2.jpg";
+import { useQuery } from "react-query";
+import { baseUrl, getRequest } from "../../utils/Services";
+import { toast } from "react-toastify";
+import Spinner from "react-bootstrap/Spinner";
+
+const showToastErrorMessage = (message) => {
+  toast.error(message);
+};
 
 const PopularProducts = () => {
+  const fetchItems = async () => {
+    try {
+      const items = await getRequest(`${baseUrl}/item/get?limit=12`);
+
+      return items?.data;
+    } catch (err) {
+      console.log(err);
+      showToastErrorMessage("there was a problem while fetching items");
+    }
+  };
+
+  const { data, status } = useQuery("items", fetchItems);
+
   return (
     <Container>
       <div>
         <PopularProductsHeader>Popular Products</PopularProductsHeader>
       </div>
-      <PopularProductsStyled>
-        <ProductCard image={advanced} />
-        <ProductCard image={classic} />
-        <ProductCard image={minimalist} />
-        <ProductCard image={minimalist2} />
-        <ProductCard image={advanced} />
-        <ProductCard image={classic} />
-        <ProductCard image={minimalist} />
-        <ProductCard image={minimalist2} />
-      </PopularProductsStyled>
+      {status === "loading" ? (
+        <div
+          className=" d-flex justify-content-center align-items-center"
+          style={{ height: "70vh" }}
+        >
+          <Spinner animation="border" />
+        </div>
+      ) : (
+        <PopularProductsStyled>
+          {data?.items?.map((item) => {
+            return <ProductCard key={item._id} item={item} />;
+          })}
+        </PopularProductsStyled>
+      )}
     </Container>
   );
 };
