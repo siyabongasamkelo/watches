@@ -40,7 +40,7 @@ const PreviewItem = () => {
   };
 
   const queryKey = ["item", { itemId }];
-  const { data, status, refetch } = useQuery(queryKey, getItem);
+  const { data, status } = useQuery(queryKey, getItem);
   const formattedAmount = currencyFormatter.format(data?.price);
 
   const incrementQuantity = (operator) => {
