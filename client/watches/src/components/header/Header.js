@@ -21,9 +21,11 @@ const Header = () => {
     <Container>
       <HeaderStyled>
         <LogoAndSearch>
-          <Logo>
-            <img src={logo} alt="logo" />
-          </Logo>
+          <Link to="/">
+            <Logo>
+              <img src={logo} alt="logo" />
+            </Logo>
+          </Link>
           <Search
             style={{
               marginRight: "30px",
