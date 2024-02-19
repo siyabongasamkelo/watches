@@ -7,12 +7,14 @@ import { baseUrl, getRequest } from "../../utils/Services";
 import { toast } from "react-toastify";
 import Spinner from "react-bootstrap/Spinner";
 import ReviewForm from "./ReviewForm";
+import { useState } from "react";
 
 const showToastErrorMessage = (message) => {
   toast.error(message);
 };
 
 const Reviews = ({ itemId }) => {
+  const [openReviewForm, setOpenReviewForm] = useState(false);
   const fetchReviews = async () => {
     try {
       const reviews = await getRequest(`${baseUrl}/review/get/${itemId}`);
@@ -28,13 +30,19 @@ const Reviews = ({ itemId }) => {
   if (status === "error")
     showToastErrorMessage("there was a problem while fetching items");
 
-  console.log(data);
-
   return (
     <ReviewsStyled>
       <RelatedProductHeader>Reviews</RelatedProductHeader>
-      <AddToCart>Write a review</AddToCart>
-      <ReviewForm />
+      <AddToCart onClick={() => setOpenReviewForm(true)}>
+        Write a review
+      </AddToCart>
+      {openReviewForm && (
+        <ReviewForm
+          closeForm={() => setOpenReviewForm(false)}
+          itemId={itemId}
+        />
+      )}
+
       {status === "loading" ? (
         <div
           className=" d-flex justify-content-center align-items-center"
