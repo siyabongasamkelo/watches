@@ -7,22 +7,18 @@ import {
 import propic from "../../assets/images/propic5.jpg";
 import { PreviewParagraph } from "../previewItem/PreviewItemStyled";
 
-const ReviewCard = () => {
+const ReviewCard = ({ reviews }) => {
   return (
     <ReviewCardStyles>
       <Profile>
-        {/* <div></div> */}
         <img src={propic} alt="propic" />
       </Profile>
       <Review>
         <div>
           <PreviewParagraph>
-            <strong>Siya Mazibuko</strong>
+            <strong>{reviews?.userId?.username}</strong>
           </PreviewParagraph>
-          <ReviewText>
-            Artificial Intelligent powered watch designed to get you straight
-            ahead of time effortlessly without even trying hard...
-          </ReviewText>
+          <ReviewText>{reviews?.review}</ReviewText>
         </div>
       </Review>
     </ReviewCardStyles>
