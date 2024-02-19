@@ -26,7 +26,7 @@ const getReview = async (req, res) => {
   try {
     const { itemId } = req.params;
 
-    const reviews = await reviewModel.find({ itemId });
+    const reviews = await reviewModel.find({ itemId }).populate("userId");
     res.status(200).json(reviews);
   } catch (err) {
     console.log(err);
