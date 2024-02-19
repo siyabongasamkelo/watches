@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { baseUrl, getRequest } from "../../utils/Services";
 import { toast } from "react-toastify";
 import Spinner from "react-bootstrap/Spinner";
+import ReviewForm from "./ReviewForm";
 
 const showToastErrorMessage = (message) => {
   toast.error(message);
@@ -24,17 +25,30 @@ const Reviews = ({ itemId }) => {
   };
 
   const { data, status } = useQuery("reviews", fetchReviews);
+  if (status === "error")
+    showToastErrorMessage("there was a problem while fetching items");
+
+  console.log(data);
 
   return (
     <ReviewsStyled>
       <RelatedProductHeader>Reviews</RelatedProductHeader>
       <AddToCart>Write a review</AddToCart>
-      <ReviewCover>
-        <ReviewCard />
-        <ReviewCard />
-        <ReviewCard />
-        <ReviewCard />
-      </ReviewCover>
+      <ReviewForm />
+      {status === "loading" ? (
+        <div
+          className=" d-flex justify-content-center align-items-center"
+          style={{ height: "20vh" }}
+        >
+          <Spinner animation="border" />
+        </div>
+      ) : (
+        <ReviewCover>
+          {data.map((reviews) => {
+            return <ReviewCard key={reviews._id} reviews={reviews} />;
+          })}
+        </ReviewCover>
+      )}
     </ReviewsStyled>
   );
 };
