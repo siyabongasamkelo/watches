@@ -17,19 +17,21 @@ import { LoginSchema } from "../../validations/UserValidation";
 import { baseUrl, postRequest } from "../../utils/Services";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
+const showToastErrorMessage = (message) => {
+  toast.error(message);
+};
+
+const successToastMessage = (message) => {
+  toast.success(message);
+};
 const Login = () => {
+  const { setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const showToastErrorMessage = (message) => {
-    toast.error(message);
-  };
-
-  const successToastMessage = (message) => {
-    toast.success(message);
-  };
 
   const goHome = () => {
     navigate("/");
@@ -62,6 +64,7 @@ const Login = () => {
 
         localStorage.setItem("User", JSON.stringify(loggingUser?.data?.data));
         setLoading(false);
+        setUser(loggingUser?.data?.data);
         successToastMessage("user logged in successfully");
         setTimeout(goHome, 4000);
       } catch (err) {
