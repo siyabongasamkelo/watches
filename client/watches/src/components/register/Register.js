@@ -14,22 +14,25 @@ import { userSchema } from "../../validations/UserValidation";
 import { baseUrl, postRequest } from "../../utils/Services";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
+import { AuthContext } from "../../context/AuthContext";
 
+const showToastErrorMessage = (message) => {
+  toast.error(message);
+};
+
+const successToastMessage = (message) => {
+  toast.success(message);
+};
 const Register = () => {
+  const { setUser } = useContext(AuthContext);
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const goHome = () => {
     navigate("/");
-  };
-  const showToastErrorMessage = (message) => {
-    toast.error(message);
-  };
-
-  const successToastMessage = (message) => {
-    toast.success(message);
   };
 
   const formik = useFormik({
@@ -60,8 +63,9 @@ const Register = () => {
           setLoading(false);
           return showToastErrorMessage(RegisterUser?.err?.response?.data);
         }
-        localStorage.setItem("User", JSON.stringify(RegisterUser.data.data));
+        localStorage.setItem("User", JSON.stringify(RegisterUser?.data?.data));
         setLoading(false);
+        setUser(RegisterUser?.data?.data);
         successToastMessage("user registered successfully");
         setTimeout(goHome, 4000);
       } catch (err) {
