@@ -4,6 +4,7 @@ const createReview = async (req, res) => {
   try {
     const { review, rating, itemId, userId } = req.body;
 
+    console.log(review, rating, itemId, userId);
     if (!review || !itemId || !rating || !userId)
       return res.status(400).json("all feilds are required");
 
