@@ -15,6 +15,7 @@ import ShopPage from "./pages/ShopPage";
 import PreviewItemPage from "./pages/PreviewItemPage";
 import AddItemPage from "./pages/AddItemPage";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
   const theme = {
@@ -51,12 +52,14 @@ function App() {
   );
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme}>
-          <ToastContainer />
-          <RouterProvider router={router} />
-        </ThemeProvider>
-      </QueryClientProvider>
+      <AuthContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider theme={theme}>
+            <ToastContainer />
+            <RouterProvider router={router} />
+          </ThemeProvider>
+        </QueryClientProvider>
+      </AuthContextProvider>
     </>
   );
 }
