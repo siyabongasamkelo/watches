@@ -1,5 +1,4 @@
-import { createContext, useCallback, useEffect, useState } from "react";
-import { baseUrl, postRequest } from "../utils/Services";
+import { createContext, useState } from "react";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
@@ -9,6 +8,7 @@ export const AuthContextProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        setUser,
       }}
     >
       {children}
