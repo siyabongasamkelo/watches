@@ -27,7 +27,7 @@ const successToastMessage = (message) => {
   toast.success(message);
 };
 const Register = () => {
-  const { setUser } = useContext(AuthContext);
+  const { updateUser } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -65,7 +65,7 @@ const Register = () => {
         }
         localStorage.setItem("User", JSON.stringify(RegisterUser?.data?.data));
         setLoading(false);
-        setUser(RegisterUser?.data?.data);
+        updateUser(RegisterUser?.data?.data);
         successToastMessage("user registered successfully");
         setTimeout(goHome, 4000);
       } catch (err) {
