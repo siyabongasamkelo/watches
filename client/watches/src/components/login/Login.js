@@ -29,7 +29,7 @@ const successToastMessage = (message) => {
   toast.success(message);
 };
 const Login = () => {
-  const { setUser } = useContext(AuthContext);
+  const { updateUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -64,7 +64,8 @@ const Login = () => {
 
         localStorage.setItem("User", JSON.stringify(loggingUser?.data?.data));
         setLoading(false);
-        setUser(loggingUser?.data?.data);
+        console.log("loggingUser", loggingUser?.data?.data);
+        updateUser(loggingUser?.data?.data);
         successToastMessage("user logged in successfully");
         setTimeout(goHome, 4000);
       } catch (err) {
