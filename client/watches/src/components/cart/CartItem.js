@@ -1,6 +1,5 @@
 import {
   CartItemStyled,
-  Delete,
   DeleteCover,
   Image,
   ImageAndName,
@@ -9,7 +8,6 @@ import {
   NameAndCategory,
   Price,
   PriceCover,
-  Quantity,
   QuantityAndPrice,
   QuantityCover,
 } from "./CartItem.styled";
