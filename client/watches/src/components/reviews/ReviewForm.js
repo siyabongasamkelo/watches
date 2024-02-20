@@ -1,10 +1,10 @@
 import { reviewSchema } from "../../validations/ReviewValidation";
-import { MyButton } from "../ProductCard";
-import { TextBox } from "../header/Header.styled";
 import {
   ReviewFormHeader,
   ReviewFormStyled,
   ReviewForms,
+  ReviewInput,
+  ReviewSubmit,
   ReviewTextArea,
   SubmitButtons,
 } from "./ReviewForm.styled";
@@ -70,7 +70,7 @@ const ReviewForm = ({ closeForm, itemId }) => {
       <ReviewForms onSubmit={formik?.handleSubmit}>
         <ReviewFormHeader>Write a review</ReviewFormHeader>
         <div>
-          <TextBox
+          <ReviewInput
             type="number"
             name="rating"
             value={formik.values.rating}
@@ -94,7 +94,7 @@ const ReviewForm = ({ closeForm, itemId }) => {
         </div>
 
         <SubmitButtons>
-          <MyButton type="submit">
+          <ReviewSubmit type="submit">
             {loading ? (
               <div className=" d-flex justify-content-center align-items-center">
                 <Spinner animation="border" role="status" />
@@ -103,8 +103,9 @@ const ReviewForm = ({ closeForm, itemId }) => {
             ) : (
               "Submit"
             )}
-          </MyButton>
-          <MyButton onClick={closeForm}>Cancel</MyButton>
+          </ReviewSubmit>
+
+          <ReviewSubmit onClick={closeForm}>Cancel</ReviewSubmit>
         </SubmitButtons>
       </ReviewForms>
     </ReviewFormStyled>
