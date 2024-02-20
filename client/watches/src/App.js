@@ -16,6 +16,7 @@ import PreviewItemPage from "./pages/PreviewItemPage";
 import AddItemPage from "./pages/AddItemPage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthContextProvider } from "./context/AuthContext";
+import CartPage from "./pages/CartPage";
 
 function App() {
   const theme = {
@@ -46,6 +47,7 @@ function App() {
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/shop/:itemId" element={<PreviewItemPage />} />
         <Route path="/add/item" element={<AddItemPage />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/*" element={<HomePage />} />
       </Route>
     )
