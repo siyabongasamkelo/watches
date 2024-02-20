@@ -13,6 +13,10 @@ export const ImageAndName = styled.div`
   width: 25%;
   height: 100%;
   display: flex;
+  @media only screen and (max-width: 600px) {
+    width: 40%;
+    height: 50%;
+  }
 `;
 export const Image = styled.div`
   width: 40%;
@@ -28,6 +32,9 @@ export const NameAndCategory = styled.div`
   width: 40%;
   height: 100%;
   margin-left: 10%;
+  @media only screen and (max-width: 600px) {
+    width: 60%;
+  }
 `;
 
 export const QuantityAndPrice = styled.div`
@@ -35,28 +42,41 @@ export const QuantityAndPrice = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media only screen and (max-width: 600px) {
+    width: 50%;
+  }
 `;
 
 export const PriceCover = styled.div`
   width: 20%;
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
-export const Price = styled(GetHelpItems)``;
+export const Price = styled(GetHelpItems)`
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+`;
 
 export const QuantityCover = styled.div`
   width: 20%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media only screen and (max-width: 600px) {
+    width: 35%;
+  }
 `;
 
-export const Quantity = styled(Price)``;
+export const Quantity = styled(GetHelpItems)``;
 
 export const ItemTotalCover = styled.div`
   width: 20%;
 `;
 
-export const ItemTotal = styled(Price)``;
+export const ItemTotal = styled(GetHelpItems)``;
 
 export const DeleteCover = styled.div`
   width: 10%;
@@ -65,7 +85,7 @@ export const DeleteCover = styled.div`
     cursor: pointer;
     transition: 0.5s ease-in-out;
     &:hover {
-      color: ${(props) => props.theme.light.secondary};
+      color: ${(props) => props.theme.light.primary};
     }
   }
 `;
