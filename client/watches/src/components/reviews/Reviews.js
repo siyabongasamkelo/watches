@@ -7,13 +7,16 @@ import { baseUrl, getRequest } from "../../utils/Services";
 import { toast } from "react-toastify";
 import Spinner from "react-bootstrap/Spinner";
 import ReviewForm from "./ReviewForm";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const showToastErrorMessage = (message) => {
   toast.error(message);
 };
 
 const Reviews = ({ itemId }) => {
+  const { user } = useContext(AuthContext);
+
   const [openReviewForm, setOpenReviewForm] = useState(false);
   const fetchReviews = async () => {
     try {
@@ -26,6 +29,14 @@ const Reviews = ({ itemId }) => {
     }
   };
 
+  const openForm = () => {
+    if (user) {
+      setOpenReviewForm(true);
+    } else {
+      showToastErrorMessage("please login to write a review");
+    }
+  };
+
   const { data, status } = useQuery("reviews", fetchReviews);
   if (status === "error")
     showToastErrorMessage("there was a problem while fetching items");
@@ -33,9 +44,7 @@ const Reviews = ({ itemId }) => {
   return (
     <ReviewsStyled>
       <RelatedProductHeader>Reviews</RelatedProductHeader>
-      <AddToCart onClick={() => setOpenReviewForm(true)}>
-        Write a review
-      </AddToCart>
+      <AddToCart onClick={openForm}>Write a review</AddToCart>
       {openReviewForm && (
         <ReviewForm
           closeForm={() => setOpenReviewForm(false)}
@@ -52,8 +61,8 @@ const Reviews = ({ itemId }) => {
         </div>
       ) : (
         <ReviewCover>
-          {data.map((reviews) => {
-            return <ReviewCard key={reviews._id} reviews={reviews} />;
+          {data?.map((reviews) => {
+            return <ReviewCard key={reviews?._id} reviews={reviews} />;
           })}
         </ReviewCover>
       )}
