@@ -1,25 +1,34 @@
+import { useState } from "react";
 import Header from "../header/Header";
 import BillingDetailsForm from "./BillingDetailsForm";
 import { CheckOutCover, CheckoutStyled } from "./Checkout.styled";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import ShippingAddressForm from "./ShippingAddressForm";
 
 const Checkout = () => {
+  const [activeTab, setActiveTab] = useState("shipping-address");
+
+  const handleNextTab = (tab) => {
+    setActiveTab(tab);
+  };
+
   return (
     <CheckoutStyled>
       <Header />
       <CheckOutCover>
         <Tabs
-          defaultActiveKey="profile"
+          defaultActiveKey="billing-details"
           id="fill-tab-example"
           className="mb-3"
+          activeKey={activeTab}
           fill
         >
           <Tab eventKey="billing-details" title={"1 billing details"}>
-            <BillingDetailsForm />
+            <BillingDetailsForm handleNextTab={handleNextTab} />
           </Tab>
           <Tab eventKey="shipping-address" title="2 shipping address">
-            Tab content for Profile
+            <ShippingAddressForm handleNextTab={handleNextTab} />
           </Tab>
           <Tab eventKey="review-order" title={"3 review order"}>
             Tab content for Contact
