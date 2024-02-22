@@ -5,10 +5,10 @@ import {
   BillingInput,
   BillingLabel,
   BillingStyled,
+  ContinueButton,
 } from "./BillingDetailsForm.styled";
-import { CountryDropdown } from "react-select-country-list";
 
-const BillingDetailsForm = () => {
+const BillingDetailsForm = ({ handleNextTab }) => {
   return (
     <BillingStyled>
       <BillingHeader>Billing Form</BillingHeader>
@@ -32,23 +32,40 @@ const BillingDetailsForm = () => {
           </div>
         </BillingForm>
         <BillingForm>
+          <div></div>
           <div>
-            {/* <CountryDropdown
-              value="US" // Set a default value if needed
-            /> */}
-          </div>
-          <div>
-            <BillingLabel>Last Name</BillingLabel>
+            <BillingLabel>Country / Region</BillingLabel>
             <BillingInput type="text" />
           </div>
           <div>
-            <BillingLabel>Phone</BillingLabel>
+            <BillingLabel>Street Address</BillingLabel>
             <BillingInput type="text" />
           </div>
           <div>
-            <BillingLabel>Email Address</BillingLabel>
+            <BillingLabel>Apartment ( Optional )</BillingLabel>
             <BillingInput type="text" />
           </div>
+          <div>
+            <BillingLabel>Town / City</BillingLabel>
+            <BillingInput type="text" />
+          </div>
+          <div>
+            <BillingLabel>Province</BillingLabel>
+            <BillingInput type="text" />
+          </div>
+          <div>
+            <BillingLabel>Post Code / Zip</BillingLabel>
+            <BillingInput type="text" />
+          </div>
+
+          <ContinueButton
+            onClick={(e) => {
+              e.preventDefault();
+              handleNextTab("shipping-address");
+            }}
+          >
+            Continue
+          </ContinueButton>
         </BillingForm>
       </BillingFormCover>
     </BillingStyled>
