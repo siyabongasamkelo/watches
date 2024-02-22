@@ -126,11 +126,11 @@ const PreviewItem = () => {
       )}
       <ReviewsAndRelatedProducts>
         <Tabs
-          defaultActiveKey="profile"
+          defaultActiveKey="related-items"
           id="uncontrolled-tab-example"
           className="mb-3"
         >
-          <Tab eventKey="related items" title="related products">
+          <Tab eventKey="related-items" title="related products">
             <RelatedProducts />
           </Tab>
           <Tab eventKey="reviews" title="reviews">
