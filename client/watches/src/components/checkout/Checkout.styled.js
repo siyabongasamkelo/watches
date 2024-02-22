@@ -6,6 +6,5 @@ export const CheckoutStyled = styled.section`
 `;
 
 export const CheckOutCover = styled.div`
-  height: 75vh;
   margin-top: 5%;
 `;
