@@ -5,6 +5,7 @@ import { CheckOutCover, CheckoutStyled } from "./Checkout.styled";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import ShippingAddressForm from "./ShippingAddressForm";
+import ReviewOrder from "./ReviewOrder";
 
 const Checkout = () => {
   const [activeTab, setActiveTab] = useState("shipping-address");
@@ -31,7 +32,7 @@ const Checkout = () => {
             <ShippingAddressForm handleNextTab={handleNextTab} />
           </Tab>
           <Tab eventKey="review-order" title={"3 review order"}>
-            Tab content for Contact
+            <ReviewOrder />
           </Tab>
         </Tabs>
       </CheckOutCover>
