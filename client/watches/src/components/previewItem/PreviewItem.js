@@ -17,19 +17,26 @@ import { BagFill } from "react-bootstrap-icons";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { baseUrl, currencyFormatter, getRequest } from "../../utils/Services";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import Spinner from "react-bootstrap/Spinner";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import RelatedProducts from "../relatedProducts/RelatedProducts";
 import Reviews from "../reviews/Reviews";
+import { CartContext } from "../../context/CartContext";
 
 const showToastErrorMessage = (message) => {
   toast.error(message);
 };
 
+const successToastMessage = (message) => {
+  toast.success(message);
+};
+
 const PreviewItem = () => {
+  const { addItemToCart } = useContext(CartContext);
+
   let { itemId } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(0);
@@ -50,6 +57,12 @@ const PreviewItem = () => {
     operator === "add"
       ? setQuantity((prevQuantity) => prevQuantity + 1)
       : setQuantity((prevQuantity) => prevQuantity - 1);
+  };
+
+  const addThisItemToCart = (data) => {
+    const newItem = { ...data, quantity };
+    addItemToCart(newItem);
+    successToastMessage("Item added to cart");
   };
 
   useEffect(() => {
@@ -118,7 +131,11 @@ const PreviewItem = () => {
                 <PreviewParagraph>{total}</PreviewParagraph>
               </strong>
             </div>
-            <AddToCart>
+            <AddToCart
+              onClick={() => {
+                addThisItemToCart(data);
+              }}
+            >
               Add to cart <BagFill />
             </AddToCart>
           </ItemDetails>
