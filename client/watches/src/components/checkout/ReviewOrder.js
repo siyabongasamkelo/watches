@@ -1,5 +1,4 @@
 import {
-  PaymentMethod,
   PaymentMethodCover,
   ReviewOrderCover,
   ReviewOrderHeader,
@@ -8,6 +7,8 @@ import {
   ReviewTotalCover,
   ReviewTotalHeader,
 } from "./ReviewOrder.styled";
+import { Paypal } from "react-bootstrap-icons";
+import { ContinueShippingButton } from "./ShippingAddressForm.styled";
 
 const ReviewOrder = () => {
   return (
@@ -36,10 +37,24 @@ const ReviewOrder = () => {
         <ReviewTotalHeader>PayMent Method</ReviewTotalHeader>
         <ul>
           <li>
-            <strong>PayPal</strong>
+            <strong>
+              <Paypal /> &emsp; PayPal
+            </strong>
           </li>
         </ul>
       </PaymentMethodCover>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "40%",
+        }}
+      >
+        <ContinueShippingButton>
+          Go Back To Shipping Address
+        </ContinueShippingButton>
+        <ContinueShippingButton>Place Order</ContinueShippingButton>
+      </div>
     </ReviewOrderStyled>
   );
 };
