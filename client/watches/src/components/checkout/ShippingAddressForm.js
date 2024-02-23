@@ -45,10 +45,20 @@ const ShippingAddressForm = ({ handleNextTab }) => {
               marginLeft: "30px",
             }}
           >
-            <ContinueShippingButton onClick={handleNextTab("billing-details")}>
+            <ContinueShippingButton
+              onClick={(e) => {
+                e.preventDefault();
+                handleNextTab("billing-details");
+              }}
+            >
               Go Back To Billing Form
             </ContinueShippingButton>
-            <ContinueShippingButton onClick={handleNextTab("review-order")}>
+            <ContinueShippingButton
+              onClick={(e) => {
+                e.preventDefault();
+                handleNextTab("review-order");
+              }}
+            >
               Continue
             </ContinueShippingButton>
           </div>
