@@ -18,6 +18,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthContextProvider } from "./context/AuthContext";
 import CartPage from "./pages/CartPage";
 import CheckOutPage from "./pages/CheckOutPage";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import { CartContextProvider } from "./context/CartContext";
 
 function App() {
   const theme = {
@@ -56,14 +58,18 @@ function App() {
   );
   return (
     <>
-      <AuthContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider theme={theme}>
-            <ToastContainer />
-            <RouterProvider router={router} />
-          </ThemeProvider>
-        </QueryClientProvider>
-      </AuthContextProvider>
+      <ErrorBoundary>
+        <CartContextProvider>
+          <AuthContextProvider>
+            <QueryClientProvider client={queryClient}>
+              <ThemeProvider theme={theme}>
+                <ToastContainer />
+                <RouterProvider router={router} />
+              </ThemeProvider>
+            </QueryClientProvider>
+          </AuthContextProvider>
+        </CartContextProvider>
+      </ErrorBoundary>
     </>
   );
 }
