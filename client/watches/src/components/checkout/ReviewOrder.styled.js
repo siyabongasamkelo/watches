@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BillingFormCover, BillingHeader } from "./BillingDetailsForm.styled";
+import { BillingHeader } from "./BillingDetailsForm.styled";
 import {
   CartSubTotalCover,
   CartTotal,
