@@ -11,36 +11,58 @@ import {
   QuantityAndPrice,
   QuantityCover,
 } from "./CartItem.styled";
-import item from "../../assets/images/a4.jpg";
 import { MyButton, ProductPrice } from "../ProductCard";
 import { Trash } from "react-bootstrap-icons";
 import { HeroParagraph } from "../home/Home.styled";
+import { currencyFormatter } from "../../utils/Services";
+import { CartContext } from "../../context/CartContext";
+import { useContext } from "react";
 
-const CartItem = () => {
+const CartItem = ({ item }) => {
+  const { increaseQuamtity, decreaseQuamtity } = useContext(CartContext);
+
+  const formattedPrice = currencyFormatter.format(item?.quantity * item?.price);
+  const shippingCost = 200;
+  const formattedTotal = currencyFormatter.format(
+    item?.quantity * item?.price + shippingCost
+  );
+
   return (
     <CartItemStyled>
       <ImageAndName>
         <Image>
-          <img src={item} alt="item" />
+          <img src={item?.image} alt="item" />
         </Image>
         <NameAndCategory>
           <ProductPrice>
-            <strong>Oridnary 336</strong>
+            <strong>{item?.name}</strong>
           </ProductPrice>
-          <ProductPrice>Classic</ProductPrice>
+          <ProductPrice>{item?.category}</ProductPrice>
         </NameAndCategory>
       </ImageAndName>
       <QuantityAndPrice>
         <PriceCover>
-          <Price>R 4000.00</Price>
+          <Price>{formattedPrice}</Price>
         </PriceCover>
         <QuantityCover>
-          <MyButton>-</MyButton>
-          <HeroParagraph>9</HeroParagraph>
-          <MyButton>+</MyButton>
+          <MyButton
+            onClick={() => {
+              increaseQuamtity(item?._id);
+            }}
+          >
+            -
+          </MyButton>
+          <HeroParagraph>{item?.quantity}</HeroParagraph>
+          <MyButton
+            onClick={() => {
+              decreaseQuamtity(item?._id);
+            }}
+          >
+            +
+          </MyButton>
         </QuantityCover>
         <ItemTotalCover>
-          <ItemTotal>R 4000.00</ItemTotal>
+          <ItemTotal>{formattedTotal}</ItemTotal>
         </ItemTotalCover>
         <DeleteCover>
           <Trash />
