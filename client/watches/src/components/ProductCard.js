@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { BagFill } from "react-bootstrap-icons";
 import { currencyFormatter } from "../utils/Services";
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
+import { toast } from "react-toastify";
+import { useContext } from "react";
 
 export const ProductCardStyled = styled.div`
   height: 35vh;
@@ -81,7 +84,19 @@ export const MyButton = styled.button`
   }
 `;
 
+const successToastMessage = (message) => {
+  toast.success(message);
+};
+
 const ProductCard = ({ item, isSpaceSmall }) => {
+  const { addItemToCart } = useContext(CartContext);
+
+  const addTheItemToCart = () => {
+    const newItem = { ...item, quantity: 1 };
+    addItemToCart(newItem);
+    successToastMessage("Item added to cart");
+  };
+
   const navigate = useNavigate();
   const goToPreviewItem = () => {
     navigate(`/shop/${item?._id}`);
@@ -103,7 +118,7 @@ const ProductCard = ({ item, isSpaceSmall }) => {
         className=" d-flex justify-content-between align-items-center"
       >
         <ProductPrice>{formattedAmount}</ProductPrice>
-        <MyButton>
+        <MyButton onClick={addTheItemToCart}>
           add to cart
           <BagFill style={{ marginLeft: "10px" }} />
         </MyButton>
