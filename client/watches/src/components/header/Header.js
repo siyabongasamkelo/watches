@@ -41,8 +41,9 @@ const Header = () => {
         </HeaderLinks>
         <MenuAndCart>
           <CartTotal>R 4000.00</CartTotal>
-          <BagFill />
-
+          <Link to={"/cart"}>
+            <BagFill />
+          </Link>
           {/* menu button that opens the header slider */}
           <List
             onClick={() => {
