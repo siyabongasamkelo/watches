@@ -10,15 +10,21 @@ import {
   CheckoutButton,
 } from "./Cart.styled";
 import CartItem from "./CartItem";
+import { CartContext } from "../../context/CartContext";
+import { useContext } from "react";
 
 const Cart = () => {
+  const { cart } = useContext(CartContext);
   return (
     <CartStyled>
       <Header />
       <CartHeader>Cart</CartHeader>
       <CartContainer>
-        <CartItem />
-        <CartItem />
+        {/* <CartItem />
+        <CartItem /> */}
+        {cart.map((item) => (
+          <CartItem key={item.id} item={item} />
+        ))}
       </CartContainer>
       <CartTotalContainer>
         <CartTotalHeader>Cart Total</CartTotalHeader>
