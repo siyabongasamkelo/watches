@@ -19,7 +19,8 @@ import { CartContext } from "../../context/CartContext";
 import { useContext } from "react";
 
 const CartItem = ({ item }) => {
-  const { increaseQuamtity, decreaseQuamtity } = useContext(CartContext);
+  const { increaseQuamtity, decreaseQuamtity, removeItemFromCart } =
+    useContext(CartContext);
 
   const formattedPrice = currencyFormatter.format(item?.quantity * item?.price);
   const shippingCost = 200;
@@ -47,7 +48,7 @@ const CartItem = ({ item }) => {
         <QuantityCover>
           <MyButton
             onClick={() => {
-              increaseQuamtity(item?._id);
+              decreaseQuamtity(item?._id);
             }}
           >
             -
@@ -55,7 +56,7 @@ const CartItem = ({ item }) => {
           <HeroParagraph>{item?.quantity}</HeroParagraph>
           <MyButton
             onClick={() => {
-              decreaseQuamtity(item?._id);
+              increaseQuamtity(item?._id);
             }}
           >
             +
@@ -65,7 +66,7 @@ const CartItem = ({ item }) => {
           <ItemTotal>{formattedTotal}</ItemTotal>
         </ItemTotalCover>
         <DeleteCover>
-          <Trash />
+          <Trash onClick={() => removeItemFromCart(item?._id)} />
         </DeleteCover>
       </QuantityAndPrice>
     </CartItemStyled>
