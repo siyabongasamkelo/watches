@@ -20,8 +20,6 @@ const Cart = () => {
       <Header />
       <CartHeader>Cart</CartHeader>
       <CartContainer>
-        {/* <CartItem />
-        <CartItem /> */}
         {cart.map((item) => (
           <CartItem key={item.id} item={item} />
         ))}
