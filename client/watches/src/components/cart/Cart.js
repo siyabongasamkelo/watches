@@ -13,12 +13,19 @@ import CartItem from "./CartItem";
 import { CartContext } from "../../context/CartContext";
 import { useContext } from "react";
 import { currencyFormatter } from "../../utils/Services";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { cart, total } = useContext(CartContext);
   const totalCost = currencyFormatter.format(total + 200);
   const subTotal = currencyFormatter.format(total + 200);
+
+  const navigate = useNavigate();
+  const goToCheckout = () => {
+    if (cart.length === 0) return;
+
+    navigate("/checkout");
+  };
 
   return (
     <CartStyled>
@@ -49,9 +56,9 @@ const Cart = () => {
             <strong>{totalCost}</strong>
           </CartTotal>
         </CartSubTotalCover>
-        <Link to={"/checkout"}>
-          <CheckoutButton>Proceed To Checkout</CheckoutButton>
-        </Link>
+        <CheckoutButton onClick={goToCheckout}>
+          Proceed To Checkout
+        </CheckoutButton>
       </CartTotalContainer>
     </CartStyled>
   );
