@@ -11,12 +11,18 @@ import { Container } from "react-bootstrap";
 import { Search, List, BagFill } from "react-bootstrap-icons";
 import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import HeaderSlider from "./HeaderSlider";
+import { CartContext } from "../../context/CartContext";
+import { currencyFormatter } from "../../utils/Services";
 
 const Header = () => {
+  const { total } = useContext(CartContext);
+  const Total = currencyFormatter.format(total);
+
   const [closeMenu, setCloseMenu] = useState(true);
   const [display, setDisplay] = useState("block");
+
   return (
     <Container>
       <HeaderStyled>
@@ -40,7 +46,8 @@ const Header = () => {
           <Link to={"/account"}>Contact</Link>
         </HeaderLinks>
         <MenuAndCart>
-          <CartTotal>R 4000.00</CartTotal>
+          {total > 0 ? <CartTotal>{Total}</CartTotal> : <div></div>}
+
           <Link to={"/cart"}>
             <BagFill />
           </Link>
