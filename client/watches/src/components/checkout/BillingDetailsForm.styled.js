@@ -7,14 +7,14 @@ export const BillingStyled = styled.div`
   margin-bottom: 30px;
 `;
 
-export const BillingForm = styled.form`
+export const BillingForm = styled.div`
   width: 100%;
   @media only screen and (min-width: 992px) {
     width: 30%;
   }
 `;
 
-export const BillingFormCover = styled.div`
+export const BillingFormCover = styled.form`
   display: flex;
   flex-direction: column;
   @media only screen and (min-width: 992px) {
