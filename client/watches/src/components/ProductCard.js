@@ -118,7 +118,7 @@ const ProductCard = ({ item, isSpaceSmall }) => {
         className=" d-flex justify-content-between align-items-center"
       >
         <ProductPrice>{formattedAmount}</ProductPrice>
-        <MyButton onClick={addTheItemToCart}>
+        <MyButton onClick={() => addTheItemToCart(item._id)}>
           add to cart
           <BagFill style={{ marginLeft: "10px" }} />
         </MyButton>
