@@ -3,7 +3,7 @@ export const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  // const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const retrievedCartState = localStorage.getItem("cart");
@@ -17,18 +17,26 @@ export const CartContextProvider = ({ children }) => {
     localStorage.setItem("cart", serializedCartState);
   }, [cart]);
 
-  console.log("cart", cart);
+  useEffect(() => {
+    const totalCost = cart.reduce((acc, item) => {
+      return acc + item.price * item.quantity;
+    }, 0);
+    setTotal(totalCost);
+  }, [cart]);
 
   const addItemToCart = (newItem) => {
     const existingItem = cart.find((item) => item._id === newItem.id);
+    console.log(existingItem);
 
     if (existingItem) return;
-
     setCart([...cart, newItem]);
   };
 
   const increaseQuamtity = (id) => {
     const index = cart.findIndex((item) => item._id === id);
+
+    if (index === -1) return;
+    if (cart[index].quantity === 10) return;
 
     if (index !== -1) {
       const newQuantity = cart[index].quantity + 1;
@@ -44,8 +52,17 @@ export const CartContextProvider = ({ children }) => {
   const decreaseQuamtity = (id) => {
     const index = cart.findIndex((item) => item._id === id);
 
+    if (index === -1) return;
+    if (cart[index].quantity === 1) return;
+
+    const newQuantity = cart[index].quantity - 1;
+
     if (index !== -1) {
-      cart[index].quantity = cart[index].quantity - 1;
+      setCart((prevItems) =>
+        prevItems.map((item) =>
+          item._id === id ? { ...item, quantity: newQuantity } : item
+        )
+      );
     }
   };
 
@@ -61,7 +78,7 @@ export const CartContextProvider = ({ children }) => {
         increaseQuamtity,
         decreaseQuamtity,
         removeItemFromCart,
-        // total,
+        total,
       }}
     >
       {children}
