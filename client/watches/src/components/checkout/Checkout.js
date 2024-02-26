@@ -14,6 +14,8 @@ const Checkout = () => {
     setActiveTab(tab);
   };
 
+  console.log("activeTab", activeTab);
+
   return (
     <CheckoutStyled>
       <Header />
