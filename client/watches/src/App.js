@@ -20,6 +20,7 @@ import CartPage from "./pages/CartPage";
 import CheckOutPage from "./pages/CheckOutPage";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import { CartContextProvider } from "./context/CartContext";
+import { CheckOutContextProvider } from "./context/CheckOutContext";
 
 function App() {
   const theme = {
@@ -59,16 +60,18 @@ function App() {
   return (
     <>
       <ErrorBoundary>
-        <CartContextProvider>
-          <AuthContextProvider>
-            <QueryClientProvider client={queryClient}>
-              <ThemeProvider theme={theme}>
-                <ToastContainer />
-                <RouterProvider router={router} />
-              </ThemeProvider>
-            </QueryClientProvider>
-          </AuthContextProvider>
-        </CartContextProvider>
+        <CheckOutContextProvider>
+          <CartContextProvider>
+            <AuthContextProvider>
+              <QueryClientProvider client={queryClient}>
+                <ThemeProvider theme={theme}>
+                  <ToastContainer />
+                  <RouterProvider router={router} />
+                </ThemeProvider>
+              </QueryClientProvider>
+            </AuthContextProvider>
+          </CartContextProvider>
+        </CheckOutContextProvider>
       </ErrorBoundary>
     </>
   );
