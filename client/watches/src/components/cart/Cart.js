@@ -13,6 +13,7 @@ import CartItem from "./CartItem";
 import { CartContext } from "../../context/CartContext";
 import { useContext } from "react";
 import { currencyFormatter } from "../../utils/Services";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { cart, total } = useContext(CartContext);
@@ -25,7 +26,7 @@ const Cart = () => {
       <CartHeader>Cart</CartHeader>
       <CartContainer>
         {cart.map((item) => (
-          <CartItem key={item.id} item={item} />
+          <CartItem key={item._id} item={item} />
         ))}
       </CartContainer>
       <CartTotalContainer>
@@ -48,7 +49,9 @@ const Cart = () => {
             <strong>{totalCost}</strong>
           </CartTotal>
         </CartSubTotalCover>
-        <CheckoutButton>Proceed To Checkout</CheckoutButton>
+        <Link to={"/checkout"}>
+          <CheckoutButton>Proceed To Checkout</CheckoutButton>
+        </Link>
       </CartTotalContainer>
     </CartStyled>
   );
