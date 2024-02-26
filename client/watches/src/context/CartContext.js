@@ -8,37 +8,36 @@ export const CartContextProvider = ({ children }) => {
   useEffect(() => {
     const retrievedCartState = localStorage.getItem("cart");
     const deserializedCartState = JSON.parse(retrievedCartState);
-    // if (deserializedCartState) setCart(deserializedCartState);
-    // setCart(deserializedCartState);
+    if (deserializedCartState) setCart(deserializedCartState);
+    setCart(deserializedCartState);
   }, []);
 
   useEffect(() => {
     const serializedCartState = JSON.stringify(cart);
     localStorage.setItem("cart", serializedCartState);
-    // console.log("LocalStorage", localStorage.getItem("cart"));
-    const retrievedCartState = localStorage.getItem("cart");
-    const deserializedCartState = JSON.parse(retrievedCartState);
-    console.log("from cart", deserializedCartState);
   }, [cart]);
 
-  // console.log("cart", cart);
-  // console.log("LocalStorage", localStorage.getItem("cart"));
+  console.log("cart", cart);
 
   const addItemToCart = (newItem) => {
     const existingItem = cart.find((item) => item._id === newItem.id);
 
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      setCart([...cart, newItem]);
-    }
+    if (existingItem) return;
+
+    setCart([...cart, newItem]);
   };
 
   const increaseQuamtity = (id) => {
     const index = cart.findIndex((item) => item._id === id);
 
     if (index !== -1) {
-      cart[index].quantity = cart[index].quantity + 1;
+      const newQuantity = cart[index].quantity + 1;
+
+      setCart((prevItems) =>
+        prevItems.map((item) =>
+          item._id === id ? { ...item, quantity: newQuantity } : item
+        )
+      );
     }
   };
 
