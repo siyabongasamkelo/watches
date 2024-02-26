@@ -12,9 +12,13 @@ import {
 import CartItem from "./CartItem";
 import { CartContext } from "../../context/CartContext";
 import { useContext } from "react";
+import { currencyFormatter } from "../../utils/Services";
 
 const Cart = () => {
-  const { cart } = useContext(CartContext);
+  const { cart, total } = useContext(CartContext);
+  const totalCost = currencyFormatter.format(total + 200);
+  const subTotal = currencyFormatter.format(total + 200);
+
   return (
     <CartStyled>
       <Header />
@@ -29,7 +33,7 @@ const Cart = () => {
         <CartSubTotalCover>
           <CartTotal>SUBTOTAL</CartTotal>
           <CartTotal>
-            <strong>R 3000.00</strong>
+            <strong>{subTotal}</strong>
           </CartTotal>
         </CartSubTotalCover>
         <CartSubTotalCover>
@@ -41,7 +45,7 @@ const Cart = () => {
         <CartSubTotalCover>
           <CartTotal>TOTAL</CartTotal>
           <CartTotal>
-            <strong>R 3 200.00</strong>
+            <strong>{totalCost}</strong>
           </CartTotal>
         </CartSubTotalCover>
         <CheckoutButton>Proceed To Checkout</CheckoutButton>
