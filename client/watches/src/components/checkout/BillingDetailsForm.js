@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import {
   BillingForm,
   BillingFormCover,
@@ -11,10 +11,10 @@ import {
 import { useFormik } from "formik";
 import { BillingAddressSchema } from "../../validations/BillingAddressValidation";
 import { CheckOutContext } from "../../context/CheckOutContext";
+import { ErrorLabel } from "../login/Login.Styled";
 
 const BillingDetailsForm = ({ handleNextTab }) => {
-  const { updateUserData, setBillingAddress } = useContext(CheckOutContext);
-  const [loading, setLoading] = useState(false);
+  const { updateUserData, updateBillingAddress } = useContext(CheckOutContext);
 
   const formik = useFormik({
     initialValues: {
@@ -32,7 +32,6 @@ const BillingDetailsForm = ({ handleNextTab }) => {
     },
     validationSchema: BillingAddressSchema,
     onSubmit: async () => {
-      setLoading(true);
       try {
         const { firstname } = formik.values;
         const { lastname } = formik.values;
@@ -47,7 +46,7 @@ const BillingDetailsForm = ({ handleNextTab }) => {
         const { postalcode } = formik.values;
 
         updateUserData({ firstname, lastname, emailaddress, phone });
-        setBillingAddress({
+        updateBillingAddress({
           country,
           streetaddress,
           apartment,
@@ -55,6 +54,7 @@ const BillingDetailsForm = ({ handleNextTab }) => {
           province,
           postalcode,
         });
+        handleNextTab("shipping-address");
       } catch (err) {
         console.log(err.message);
       }
@@ -75,6 +75,9 @@ const BillingDetailsForm = ({ handleNextTab }) => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik?.errors && (
+              <ErrorLabel>{formik?.errors?.firstname}</ErrorLabel>
+            )}
           </div>
           <div>
             <BillingLabel>Last Name</BillingLabel>
@@ -85,6 +88,9 @@ const BillingDetailsForm = ({ handleNextTab }) => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik?.errors && (
+              <ErrorLabel>{formik?.errors?.lastname}</ErrorLabel>
+            )}
           </div>
           <div>
             <BillingLabel>Phone</BillingLabel>
@@ -95,6 +101,7 @@ const BillingDetailsForm = ({ handleNextTab }) => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik?.errors && <ErrorLabel>{formik?.errors?.phone}</ErrorLabel>}
           </div>
           <div>
             <BillingLabel>Email Address</BillingLabel>
@@ -105,6 +112,9 @@ const BillingDetailsForm = ({ handleNextTab }) => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik?.errors && (
+              <ErrorLabel>{formik?.errors?.emailaddress}</ErrorLabel>
+            )}
           </div>
         </BillingForm>
         <BillingForm>
@@ -118,6 +128,9 @@ const BillingDetailsForm = ({ handleNextTab }) => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik?.errors && (
+              <ErrorLabel>{formik?.errors?.country}</ErrorLabel>
+            )}
           </div>
           <div>
             <BillingLabel>Street Address</BillingLabel>
@@ -128,6 +141,9 @@ const BillingDetailsForm = ({ handleNextTab }) => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik?.errors && (
+              <ErrorLabel>{formik?.errors?.streetaddress}</ErrorLabel>
+            )}
           </div>
           <div>
             <BillingLabel>Apartment ( Optional )</BillingLabel>
@@ -138,6 +154,9 @@ const BillingDetailsForm = ({ handleNextTab }) => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik?.errors && (
+              <ErrorLabel>{formik?.errors?.apartment}</ErrorLabel>
+            )}
           </div>
           <div>
             <BillingLabel>Town / City</BillingLabel>
@@ -148,16 +167,20 @@ const BillingDetailsForm = ({ handleNextTab }) => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik?.errors && <ErrorLabel>{formik?.errors?.city}</ErrorLabel>}
           </div>
           <div>
             <BillingLabel>Province</BillingLabel>
             <BillingInput
               type="text"
-              name="provice"
+              name="province"
               value={formik.values.province}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik?.errors && (
+              <ErrorLabel>{formik?.errors?.province}</ErrorLabel>
+            )}
           </div>
           <div>
             <BillingLabel>Post Code / Zip</BillingLabel>
@@ -168,16 +191,12 @@ const BillingDetailsForm = ({ handleNextTab }) => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
+            {formik?.errors && (
+              <ErrorLabel>{formik?.errors?.postalcode}</ErrorLabel>
+            )}
           </div>
 
-          <ContinueButton
-            onClick={(e) => {
-              e.preventDefault();
-              handleNextTab("shipping-address");
-            }}
-          >
-            Continue
-          </ContinueButton>
+          <ContinueButton type="submit">Continue</ContinueButton>
         </BillingForm>
       </BillingFormCover>
     </BillingStyled>
