@@ -21,6 +21,8 @@ import CheckOutPage from "./pages/CheckOutPage";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import { CartContextProvider } from "./context/CartContext";
 import { CheckOutContextProvider } from "./context/CheckOutContext";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import PayPalPayPage from "./pages/PayPalPayPage";
 
 function App() {
   const theme = {
@@ -39,6 +41,12 @@ function App() {
     },
   };
 
+  const initialOptions = {
+    clientId: process.env.REACT_APP_PAYPAL_CLIENTID,
+    currency: "USD",
+    intent: "capture",
+  };
+
   const queryClient = new QueryClient();
 
   const router = createBrowserRouter(
@@ -53,6 +61,7 @@ function App() {
         <Route path="/add/item" element={<AddItemPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckOutPage />} />
+        <Route path="/paypalpay" element={<PayPalPayPage />} />
         <Route path="/*" element={<HomePage />} />
       </Route>
     )
@@ -60,18 +69,20 @@ function App() {
   return (
     <>
       <ErrorBoundary>
-        <CheckOutContextProvider>
-          <CartContextProvider>
-            <AuthContextProvider>
-              <QueryClientProvider client={queryClient}>
-                <ThemeProvider theme={theme}>
-                  <ToastContainer />
-                  <RouterProvider router={router} />
-                </ThemeProvider>
-              </QueryClientProvider>
-            </AuthContextProvider>
-          </CartContextProvider>
-        </CheckOutContextProvider>
+        <PayPalScriptProvider options={initialOptions}>
+          <CheckOutContextProvider>
+            <CartContextProvider>
+              <AuthContextProvider>
+                <QueryClientProvider client={queryClient}>
+                  <ThemeProvider theme={theme}>
+                    <ToastContainer />
+                    <RouterProvider router={router} />
+                  </ThemeProvider>
+                </QueryClientProvider>
+              </AuthContextProvider>
+            </CartContextProvider>
+          </CheckOutContextProvider>
+        </PayPalScriptProvider>
       </ErrorBoundary>
     </>
   );
