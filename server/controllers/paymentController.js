@@ -1,5 +1,6 @@
 import "dotenv/config";
-const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8888 } = process.env;
+const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env;
+const base = "https://api-m.sandbox.paypal.com";
 
 const generateAccessToken = async () => {
   try {
@@ -24,11 +25,11 @@ const generateAccessToken = async () => {
   }
 };
 
-const createOrder = async (data) => {
-  console.log(
-    "shopping cart information passed from the frontend createOrder() callback:",
-    data
-  );
+const createOrder = async (data, total) => {
+  // console.log(
+  //   "shopping cart information passed from the frontend createOrder() callback:",
+  //   data
+  // );
 
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders`;
@@ -38,7 +39,7 @@ const createOrder = async (data) => {
       {
         amount: {
           currency_code: "USD",
-          value: data.cost,
+          value: total,
         },
       },
     ],
@@ -52,6 +53,8 @@ const createOrder = async (data) => {
     method: "POST",
     body: JSON.stringify(payload),
   });
+
+  // console.log(response);
 
   return handleResponse(response);
 };
@@ -87,9 +90,23 @@ async function handleResponse(response) {
 const orderCreateController = async (req, res) => {
   try {
     // use the cart information passed from the front-end to calculate the order amount detals
-    const { cart } = req.body;
-    console.log("cart", cart);
-    const { jsonResponse, httpStatusCode } = await createOrder(cart);
+    const { cart, total } = req.body;
+
+    // console.log(
+    //   cart.map((item) => {
+    //     return {
+    //       name: item.name,
+    //       description: item.description,
+    //       unit_amount: {
+    //         currency_code: "USD",
+    //         value: item.price,
+    //       },
+    //       quantity: item.quantity,
+    //     };
+    //   })
+    // );
+
+    const { jsonResponse, httpStatusCode } = await createOrder(cart, total);
     res.status(httpStatusCode).json(jsonResponse);
   } catch (error) {
     console.error("Failed to create order:", error);
