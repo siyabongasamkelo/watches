@@ -8,13 +8,11 @@ import ShippingAddressForm from "./ShippingAddressForm";
 import ReviewOrder from "./ReviewOrder";
 
 const Checkout = () => {
-  const [activeTab, setActiveTab] = useState("billing-details");
+  const [activeTab, setActiveTab] = useState("review-order");
 
   const handleNextTab = (tab) => {
     setActiveTab(tab);
   };
-
-  console.log("activeTab", activeTab);
 
   return (
     <CheckoutStyled>
