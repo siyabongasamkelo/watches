@@ -6,8 +6,6 @@ export const CheckOutContextProvider = ({ children }) => {
   const [billingAddress, setBillingAddress] = useState({});
   const [shippingAddress, setShippingAddress] = useState({});
 
-  // console.log("userData", userData);
-
   useEffect(() => {
     const retrievedUserData = localStorage.getItem("userData");
     const deserializedUserData = JSON.parse(retrievedUserData);
