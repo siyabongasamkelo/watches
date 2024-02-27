@@ -9,6 +9,7 @@ import userRoutes from "./routes/userRoutes.js";
 import itemRoutes from "./routes/itemRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import ordersRoutes from "./routes/ordersRoutes.js";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/user", userRoutes);
 app.use("/item", itemRoutes);
 app.use("/review", reviewRoutes);
 app.use("/", paymentRoutes);
+app.use("/order", ordersRoutes);
 
 //mongodb connection
 const uri = process.env.MONGODB_URL;
