@@ -6,6 +6,6 @@ import {
 
 const router = express.Router();
 
-router.post("/", orderCreateController);
-router.get("/", orderCaptureController);
+router.post("/orders", orderCreateController);
+router.get("/orders/:orderID/capture", orderCaptureController);
 export default router;
