@@ -54,8 +54,6 @@ const createOrder = async (data, total) => {
     body: JSON.stringify(payload),
   });
 
-  // console.log(response);
-
   return handleResponse(response);
 };
 
@@ -90,22 +88,9 @@ async function handleResponse(response) {
 const orderCreateController = async (req, res) => {
   try {
     // use the cart information passed from the front-end to calculate the order amount detals
-    const { cart, total } = req.body;
-
-    // console.log(
-    //   cart.map((item) => {
-    //     return {
-    //       name: item.name,
-    //       description: item.description,
-    //       unit_amount: {
-    //         currency_code: "USD",
-    //         value: item.price,
-    //       },
-    //       quantity: item.quantity,
-    //     };
-    //   })
-    // );
-
+    // const { cart, total } = req.body;
+    const { cart } = req.body;
+    const total = 3000;
     const { jsonResponse, httpStatusCode } = await createOrder(cart, total);
     res.status(httpStatusCode).json(jsonResponse);
   } catch (error) {
