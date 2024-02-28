@@ -12,8 +12,6 @@ const createOrder = async (req, res) => {
       orderId,
     } = req.body;
 
-    console.log(req.body);
-
     if (
       !items ||
       !buyerDetails ||
