@@ -8,7 +8,7 @@ import ShippingAddressForm from "./ShippingAddressForm";
 import ReviewOrder from "./ReviewOrder";
 
 const Checkout = () => {
-  const [activeTab, setActiveTab] = useState("review-order");
+  const [activeTab, setActiveTab] = useState("billing-details");
 
   const handleNextTab = (tab) => {
     setActiveTab(tab);
