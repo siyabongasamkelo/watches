@@ -4,7 +4,7 @@ export const baseUrl = "http://localhost:5000";
 export const postRequest = async (url, body) => {
   try {
     const response = await axios.post(url, body);
-    console.log(response);
+
     return { data: response, error: false };
   } catch (err) {
     return { err, error: true };
