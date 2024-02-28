@@ -31,7 +31,6 @@ const PaypalPayment = ({ cart, total, saveOrder }) => {
       };
 
       const saveOrder = await postRequest(`${baseUrl}/order/create`, orderData);
-      console.log(saveOrder);
       successToastMessage(saveOrder?.data?.data);
     } catch (err) {
       console.log(err);
