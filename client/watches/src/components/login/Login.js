@@ -69,7 +69,7 @@ const Login = () => {
         successToastMessage("user logged in successfully");
         setTimeout(goHome, 4000);
       } catch (err) {
-        console.log(err.message);
+        console.log(err?.message);
         setLoading(false);
         showToastErrorMessage("Something went wrong please try again later");
       }
@@ -85,17 +85,22 @@ const Login = () => {
         <LoginForm onSubmit={formik.handleSubmit}>
           <div>
             <LoginInput
-              placeholder="enter your email..."
+              placeholder="enter your email...example@gmail.com"
+              id="email"
               name="email"
+              autocomplete="email"
               value={formik.values.email}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
-            {formik?.errors && <ErrorLabel>{formik?.errors?.email}</ErrorLabel>}
+            {formik?.errors.email && (
+              <ErrorLabel>{formik?.errors?.email}</ErrorLabel>
+            )}
           </div>
 
           <div>
             <LoginInput
+              id="password"
               type="password"
               placeholder="enter your password..."
               name="password"
@@ -103,7 +108,7 @@ const Login = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
-            {formik?.errors && (
+            {formik?.errors.password && (
               <ErrorLabel>{formik?.errors?.password}</ErrorLabel>
             )}
           </div>
@@ -121,7 +126,7 @@ const Login = () => {
             {loading ? (
               <div className=" d-flex justify-content-center align-items-center">
                 <Spinner animation="border" role="status" />
-                <span style={{ marginLeft: "10px" }}>Loading...</span>
+                <span style={{ marginLeft: "10px" }}>Logging in...</span>
               </div>
             ) : (
               "Login"
