@@ -40,7 +40,6 @@ const Register = () => {
       username: "",
       email: "",
       password: "",
-      conPassword: "",
     },
     validationSchema: userSchema,
     onSubmit: async () => {
@@ -85,6 +84,7 @@ const Register = () => {
           <ToastContainer />
           <div>
             <RegisterInput
+              id="username"
               placeholder="type username..."
               type="text"
               name="username"
@@ -97,7 +97,8 @@ const Register = () => {
 
           <div>
             <RegisterInput
-              placeholder="type email..."
+              id="email"
+              placeholder="type email...siyabonga@gmail.com"
               type="email"
               name="email"
               value={formik.values.email}
@@ -109,6 +110,7 @@ const Register = () => {
 
           <div>
             <RegisterInput
+              id="password"
               placeholder="type password..."
               type="password"
               name="password"
@@ -118,18 +120,6 @@ const Register = () => {
             />
             <ErrorLabel>{formik.errors.password}</ErrorLabel>
           </div>
-
-          <div>
-            <RegisterInput
-              placeholder="confirm password..."
-              type="password"
-              name="conPassword"
-              value={formik.values.conPassword}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-            />
-            <ErrorLabel>{formik.errors.conPassword}</ErrorLabel>
-          </div>
           <LoginNowText>
             Already have an account <Link to={"/login"}>Login</Link> now
           </LoginNowText>
@@ -137,10 +127,12 @@ const Register = () => {
             {loading ? (
               <div className=" d-flex justify-content-center align-items-center">
                 <Spinner animation="border" role="status" />
-                <span style={{ marginLeft: "10px" }}>Loading...</span>
+                <span style={{ marginLeft: "10px" }}>
+                  Registering your account
+                </span>
               </div>
             ) : (
-              "Register"
+              "Register your account"
             )}
           </SubmitButton>
         </RegisterForm>
