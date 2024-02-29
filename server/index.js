@@ -25,6 +25,9 @@ app.use("/item", itemRoutes);
 app.use("/review", reviewRoutes);
 app.use("/", paymentRoutes);
 app.use("/order", ordersRoutes);
+app.all("*", (req, res) => {
+  res.status(400).json("404 Page not found");
+});
 
 //mongodb connection
 const uri = process.env.MONGODB_URL;
