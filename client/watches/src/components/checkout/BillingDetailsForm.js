@@ -67,10 +67,12 @@ const BillingDetailsForm = ({ handleNextTab }) => {
       <BillingFormCover onSubmit={formik.handleSubmit}>
         <BillingForm>
           <div>
-            <BillingLabel>First Name</BillingLabel>
+            <BillingLabel for="firstname">First Name</BillingLabel>
             <BillingInput
+              id="firstname"
               type="text"
               name="firstname"
+              autocomplete="firstname"
               value={formik.values.firstname}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -80,10 +82,12 @@ const BillingDetailsForm = ({ handleNextTab }) => {
             )}
           </div>
           <div>
-            <BillingLabel>Last Name</BillingLabel>
+            <BillingLabel for="lastname">Last Name</BillingLabel>
             <BillingInput
+              id="lastname"
               type="text"
               name="lastname"
+              autocomplete="lastname"
               value={formik.values.lastname}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -93,10 +97,12 @@ const BillingDetailsForm = ({ handleNextTab }) => {
             )}
           </div>
           <div>
-            <BillingLabel>Phone</BillingLabel>
+            <BillingLabel for="phone">Phone</BillingLabel>
             <BillingInput
-              type="text"
+              id="phone"
+              type="tel"
               name="phone"
+              autocomplete="phone"
               value={formik.values.phone}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -104,10 +110,12 @@ const BillingDetailsForm = ({ handleNextTab }) => {
             {formik?.errors && <ErrorLabel>{formik?.errors?.phone}</ErrorLabel>}
           </div>
           <div>
-            <BillingLabel>Email Address</BillingLabel>
+            <BillingLabel for="emailaddress">Email Address</BillingLabel>
             <BillingInput
-              type="text"
+              id="emailaddress"
+              type="email"
               name="emailaddress"
+              autocomplete="email"
               value={formik.values.emailaddress}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -120,8 +128,9 @@ const BillingDetailsForm = ({ handleNextTab }) => {
         <BillingForm>
           <div></div>
           <div>
-            <BillingLabel>Country / Region</BillingLabel>
+            <BillingLabel for="country">Country / Region</BillingLabel>
             <BillingInput
+              id="country"
               type="text"
               name="country"
               value={formik.values.country}
@@ -133,10 +142,11 @@ const BillingDetailsForm = ({ handleNextTab }) => {
             )}
           </div>
           <div>
-            <BillingLabel>Street Address</BillingLabel>
+            <BillingLabel for="street-address">Street Address</BillingLabel>
             <BillingInput
+              id="street-address"
               type="text"
-              name="streetaddress"
+              name="street-address"
               value={formik.values.streetaddress}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -146,8 +156,9 @@ const BillingDetailsForm = ({ handleNextTab }) => {
             )}
           </div>
           <div>
-            <BillingLabel>Apartment ( Optional )</BillingLabel>
+            <BillingLabel for="apartment">Apartment ( Optional )</BillingLabel>
             <BillingInput
+              id="apartment"
               type="text"
               name="apartment"
               value={formik.values.apartment}
@@ -159,8 +170,9 @@ const BillingDetailsForm = ({ handleNextTab }) => {
             )}
           </div>
           <div>
-            <BillingLabel>Town / City</BillingLabel>
+            <BillingLabel for="city">Town / City</BillingLabel>
             <BillingInput
+              id="city"
               type="text"
               name="city"
               value={formik.values.city}
@@ -170,8 +182,9 @@ const BillingDetailsForm = ({ handleNextTab }) => {
             {formik?.errors && <ErrorLabel>{formik?.errors?.city}</ErrorLabel>}
           </div>
           <div>
-            <BillingLabel>Province</BillingLabel>
+            <BillingLabel for="province">Province</BillingLabel>
             <BillingInput
+              id="province"
               type="text"
               name="province"
               value={formik.values.province}
@@ -183,10 +196,11 @@ const BillingDetailsForm = ({ handleNextTab }) => {
             )}
           </div>
           <div>
-            <BillingLabel>Post Code / Zip</BillingLabel>
+            <BillingLabel for="postal-code">Post Code / Zip</BillingLabel>
             <BillingInput
-              type="text"
-              name="postalcode"
+              id="postal-code"
+              type="number"
+              name="postal-code"
               value={formik.values.postalcode}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
@@ -196,7 +210,9 @@ const BillingDetailsForm = ({ handleNextTab }) => {
             )}
           </div>
 
-          <ContinueButton type="submit">Continue</ContinueButton>
+          <ContinueButton type="submit" value={"submit"}>
+            Continue
+          </ContinueButton>
         </BillingForm>
       </BillingFormCover>
     </BillingStyled>
