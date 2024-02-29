@@ -23,6 +23,8 @@ import { CartContextProvider } from "./context/CartContext";
 import { CheckOutContextProvider } from "./context/CheckOutContext";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PayPalPayPage from "./pages/PayPalPayPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 function App() {
   const theme = {
@@ -62,6 +64,8 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckOutPage />} />
         <Route path="/paypalpay" element={<PayPalPayPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset/:userId/:token" element={<ResetPasswordPage />} />
         <Route path="/*" element={<HomePage />} />
       </Route>
     )
