@@ -4,10 +4,6 @@ export const userSchema = yup.object().shape({
   username: yup.string().required(),
   email: yup.string().email("email not valid").required(),
   password: yup.string().min(3).max(14).required(),
-  conPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "passwords must match")
-    .required("confirm your password"),
 });
 
 export const LoginSchema = yup.object().shape({
