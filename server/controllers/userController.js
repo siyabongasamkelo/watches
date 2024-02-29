@@ -1,14 +1,19 @@
-// import userModel from "../model/userModel";
 import { userModel } from "../model/userModel.js";
 import bcrypt from "bcrypt";
 import validator from "validator";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
+import nodemailer from "nodemailer";
 
 const createToken = (id) => {
   const jwtKey = process.env.JWT_SECRETE_KEY;
   return jwt.sign({ id }, jwtKey, { expiresIn: "3d" });
+};
+
+const createTemporalyToken = (id) => {
+  const jwtKey = process.env.JWT_SECRETE_KEY;
+  return jwt.sign({ id }, jwtKey, { expiresIn: "15m" });
 };
 
 const registerUser = async (req, res) => {
@@ -133,6 +138,131 @@ const updateUser = async (req, res) => {
   }
 };
 
+const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) return res.status(400).json("Email is requred");
+    if (!validator.isEmail(email))
+      return res.status(400).json("Please enter a valid email");
+
+    const user = await userModel.find({ email: email });
+
+    if (!user) return res.status(400).json("User does not exits");
+
+    const token = createTemporalyToken(user[0]?._id);
+
+    const baseUrl = process.env.BASEURL || "http://localhost:3000";
+    console.log(baseUrl);
+
+    const link = `${baseUrl}/reset/${user[0]._id}/${token}`;
+
+    const transporter = nodemailer.createTransport({
+      service: "hotmail",
+      auth: {
+        user: "siyabongasamkelociam@outlook.com",
+        pass: "Bafana2001",
+      },
+    });
+
+    const options = {
+      from: "siyabongasamkelociam@outlook.com",
+      to: `${email}`,
+      subject: "Luxurious Watches Password reset",
+      text: `To reset your password please click this link ${link}`,
+    };
+
+    transporter.sendMail(options, (err, info) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json(err);
+      }
+      console.log(info.response);
+      res.status(200).json("Check your email for further instructions");
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const { userId, token } = req.params;
+    const { email, password } = req.body;
+
+    if (!email || !password || !userId || !token)
+      return res.status(400).json("Please fill all the fields");
+
+    if (!validator.isEmail(email))
+      return res.status(400).json("Please enter a valid email");
+
+    const user = await userModel.find({ email: email });
+
+    if (!user) return res.status(400).json("user not found");
+
+    if (!validator.isStrongPassword(password))
+      return res.status(400).json("Please enter a strong password");
+
+    const jwtKey = process.env.JWT_SECRETE_KEY;
+
+    if (!token) return res.status(400).json("token is required");
+
+    function verifyAndCompareUserId(token, userId) {
+      try {
+        // Verify the JWT token and decode its payload
+        const decodedToken = jwt.verify(token, jwtKey);
+
+        // Extract the userId from the token's payload
+        const userIdFromToken = decodedToken.id;
+        console.log(decodedToken);
+
+        const tokenExpiry = decodedToken.exp;
+        if (Date.now() >= tokenExpiry * 1000)
+          return { valid: false, message: "Token has expired" };
+
+        // Compare the userId from the token with the userId from the request parameters
+        if (userIdFromToken === userId)
+          return {
+            valid: true,
+            message: "Token is valid for the specified user",
+          };
+        if (userIdFromToken !== userId)
+          return {
+            valid: false,
+            message: "Token does not match the specified user",
+          };
+      } catch (error) {
+        return {
+          valid: false,
+          message: "Error verifying token: " + error.message,
+        };
+      }
+    }
+
+    const verificationResult = verifyAndCompareUserId(token, userId);
+
+    if (!verificationResult.valid)
+      return res.status(400).json(verificationResult.message);
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const updatePassword = await userModel.findOneAndUpdate(
+      { _id: userId },
+      { password: hashedPassword },
+      {
+        new: true,
+      }
+    );
+
+    res.status(200).json("Password reset successfully");
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
+  }
+};
+
 export {
   registerUser,
   loginUser,
@@ -140,4 +270,6 @@ export {
   getAllUsers,
   deleteUser,
   updateUser,
+  forgotPassword,
+  resetPassword,
 };
