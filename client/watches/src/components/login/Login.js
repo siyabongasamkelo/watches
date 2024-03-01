@@ -114,7 +114,8 @@ const Login = () => {
           </div>
 
           <RegisterNowText>
-            Don't have an account <Link to={"/register"}>register</Link> now
+            Don't have an account <Link to={"/confirm-email"}>register</Link>{" "}
+            now
           </RegisterNowText>
 
           <RegisterNowText>
