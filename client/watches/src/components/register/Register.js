@@ -15,7 +15,7 @@ import { baseUrl, postRequest } from "../../utils/Services";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -27,6 +27,8 @@ const successToastMessage = (message) => {
   toast.success(message);
 };
 const Register = () => {
+  let { email } = useParams();
+  let { token } = useParams();
   const { updateUser } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(false);
@@ -46,14 +48,17 @@ const Register = () => {
       setLoading(true);
       try {
         const { username } = formik.values;
-        const { email } = formik.values;
+        const { newemail } = formik.values;
         const { password } = formik.values;
 
-        const RegisterUser = await postRequest(`${baseUrl}/user/register`, {
-          username,
-          email,
-          password,
-        });
+        const RegisterUser = await postRequest(
+          `${baseUrl}/user/register/${email}/${token}`,
+          {
+            username,
+            newEmail: newemail,
+            password,
+          }
+        );
 
         if (RegisterUser.error) {
           showToastErrorMessage(
@@ -97,15 +102,15 @@ const Register = () => {
 
           <div>
             <RegisterInput
-              id="email"
+              id="newemail"
               placeholder="type email...siyabonga@gmail.com"
               type="email"
-              name="email"
-              value={formik.values.email}
+              name="newemail"
+              value={formik.values.newemail}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
-            <ErrorLabel>{formik.errors.email}</ErrorLabel>
+            <ErrorLabel>{formik.errors.newemail}</ErrorLabel>
           </div>
 
           <div>
