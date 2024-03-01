@@ -16,20 +16,59 @@ const createTemporalyToken = (id) => {
   return jwt.sign({ id }, jwtKey, { expiresIn: "15m" });
 };
 
+const verifyAndCompareUserId = (token, userId) => {
+  try {
+    const jwtKey = process.env.JWT_SECRETE_KEY;
+    const decodedToken = jwt.verify(token, jwtKey);
+    const userIdFromToken = decodedToken.id;
+
+    const tokenExpiry = decodedToken.exp;
+    if (Date.now() >= tokenExpiry * 1000)
+      return { valid: false, message: "Token has expired" };
+
+    if (userIdFromToken === userId)
+      return {
+        valid: true,
+        message: "Token is valid for the specified user",
+      };
+
+    if (userIdFromToken !== userId)
+      return {
+        valid: false,
+        message: "Token does not match the specified user",
+      };
+  } catch (error) {
+    return {
+      valid: false,
+      message: "Error verifying token: " + error.message,
+    };
+  }
+};
+
 const registerUser = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, newEmail, password } = req.body;
+    const { email, token } = req.params;
+
+    //validations;
+    if ((!username || !newEmail || !password, !email || !token))
+      return res.status(400).json("Please fill all the fields");
+
+    if (!validator.isEmail(email))
+      return res.status(400).json("Please enter a valid email");
+
+    if (!validator.isStrongPassword(password))
+      return res.status(400).json("Please enter a strong password");
+
+    if (email !== newEmail) return res.status(400).json("Emails do not match");
 
     let userExists = await userModel.findOne({ email });
     if (userExists) return res.status(400).json("Email already exists");
 
-    //validations
-    if (!username || !email || !password)
-      return res.status(400).json("Please fill all the fields");
-    if (!validator.isEmail(email))
-      return res.status(400).json("Please enter a valid email");
-    if (!validator.isStrongPassword(password))
-      return res.status(400).json("Please enter a strong password");
+    const verificationResult = verifyAndCompareUserId(token, email);
+
+    if (!verificationResult.valid)
+      return res.status(400).json(verificationResult.message);
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -40,14 +79,59 @@ const registerUser = async (req, res) => {
       email,
     });
 
-    const token = createToken(newUser._id);
+    const newToken = createToken(newUser._id);
 
     await newUser.save();
 
-    res.status(200).json({ username, email, token, id: newUser._id });
+    res.status(200).json({ username, email, token: newToken, id: newUser._id });
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
+  }
+};
+
+const confirmEmail = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) return res.status(400).json("Email is required");
+    if (!validator.isEmail(email))
+      return res.status(400).json("Please enter a valid email");
+
+    const user = await userModel.find({ email: email });
+    if (user.length > 0) return res.status(400).json("User already exits");
+
+    const token = createTemporalyToken(email);
+
+    const baseUrl = process.env.BASEURL || "http://localhost:3000";
+
+    const link = `${baseUrl}/register/${email}/${token}`;
+
+    const transporter = nodemailer.createTransport({
+      service: "hotmail",
+      auth: {
+        user: "siyabongasamkelociam@outlook.com",
+        pass: "Bafana2001",
+      },
+    });
+
+    const options = {
+      from: "siyabongasamkelociam@outlook.com",
+      to: `${email}`,
+      subject: "Luxurious Watches Confirmation Email",
+      text: `Thank your for signing up on Luxurious Watches. Please confirm your email by clicking the link below ${link}`,
+    };
+
+    transporter.sendMail(options, (err, info) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json(err);
+      }
+      res.status(200).json("Check your email for further instructions");
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json(err);
   }
 };
 
@@ -153,7 +237,6 @@ const forgotPassword = async (req, res) => {
     const token = createTemporalyToken(user[0]?._id);
 
     const baseUrl = process.env.BASEURL || "http://localhost:3000";
-    console.log(baseUrl);
 
     const link = `${baseUrl}/reset/${user[0]._id}/${token}`;
 
@@ -177,7 +260,6 @@ const forgotPassword = async (req, res) => {
         console.log(err);
         return res.status(400).json(err);
       }
-      console.log(info.response);
       res.status(200).json("Check your email for further instructions");
     });
   } catch (err) {
@@ -207,38 +289,6 @@ const resetPassword = async (req, res) => {
     const jwtKey = process.env.JWT_SECRETE_KEY;
 
     if (!token) return res.status(400).json("token is required");
-
-    function verifyAndCompareUserId(token, userId) {
-      try {
-        // Verify the JWT token and decode its payload
-        const decodedToken = jwt.verify(token, jwtKey);
-
-        // Extract the userId from the token's payload
-        const userIdFromToken = decodedToken.id;
-        console.log(decodedToken);
-
-        const tokenExpiry = decodedToken.exp;
-        if (Date.now() >= tokenExpiry * 1000)
-          return { valid: false, message: "Token has expired" };
-
-        // Compare the userId from the token with the userId from the request parameters
-        if (userIdFromToken === userId)
-          return {
-            valid: true,
-            message: "Token is valid for the specified user",
-          };
-        if (userIdFromToken !== userId)
-          return {
-            valid: false,
-            message: "Token does not match the specified user",
-          };
-      } catch (error) {
-        return {
-          valid: false,
-          message: "Error verifying token: " + error.message,
-        };
-      }
-    }
 
     const verificationResult = verifyAndCompareUserId(token, userId);
 
@@ -272,4 +322,5 @@ export {
   updateUser,
   forgotPassword,
   resetPassword,
+  confirmEmail,
 };
