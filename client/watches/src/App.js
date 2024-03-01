@@ -25,6 +25,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PayPalPayPage from "./pages/PayPalPayPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import SubmitEmailPage from "./pages/SubmitEmailPage";
 
 function App() {
   const theme = {
@@ -57,7 +58,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/register/:email/:token" element={<RegisterPage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/shop/:itemId" element={<PreviewItemPage />} />
         <Route path="/add/item" element={<AddItemPage />} />
@@ -66,6 +67,7 @@ function App() {
         <Route path="/paypalpay" element={<PayPalPayPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset/:userId/:token" element={<ResetPasswordPage />} />
+        <Route path="/confirm-email" element={<SubmitEmailPage />} />
         <Route path="/*" element={<HomePage />} />
       </Route>
     )
