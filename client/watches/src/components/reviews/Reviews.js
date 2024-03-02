@@ -7,7 +7,7 @@ import { baseUrl, getRequest } from "../../utils/Services";
 import { toast } from "react-toastify";
 import Spinner from "react-bootstrap/Spinner";
 import ReviewForm from "./ReviewForm";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const showToastErrorMessage = (message) => {
@@ -37,9 +37,14 @@ const Reviews = ({ itemId }) => {
     }
   };
 
-  const { data, status } = useQuery("reviews", fetchReviews);
+  const queryKey = ["reviews", { itemId }];
+  const { data, status, refetch } = useQuery(queryKey, fetchReviews);
   if (status === "error")
     showToastErrorMessage("there was a problem while fetching items");
+
+  useEffect(() => {
+    refetch();
+  }, [itemId, refetch]);
 
   return (
     <ReviewsStyled>
