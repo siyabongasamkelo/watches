@@ -14,6 +14,7 @@ import {
 import watch1 from "../../assets/images/hero1.jpg";
 import watch2 from "../../assets/images/hero2.jpg";
 import { Facebook, Instagram, Twitter, Whatsapp } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -32,7 +33,9 @@ const Home = () => {
               this you gotta trust me...
             </HeroParagraph>
             <HeroAction>
-              <MyButton>Shop Now</MyButton>
+              <Link to={"/shop"}>
+                <MyButton>Shop Now</MyButton>
+              </Link>
             </HeroAction>
             <SocialMediaIcons>
               <Facebook />
