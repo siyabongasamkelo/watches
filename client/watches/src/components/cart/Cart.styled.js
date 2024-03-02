@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { LoginHeader } from "../login/Login.Styled";
 import { GetHelpHeader } from "../footer/Footer.styled";
 import { Price } from "./CartItem.styled";
-import { MyButton } from "../ProductCard";
-// import { MyButton } from "../home/Home.styled";
+import { MyButton } from "../ProductCard.styled";
 
 export const CartStyled = styled.section`
   font-family: "Great Vibes", cursive;
