@@ -60,7 +60,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register/:email/:token" element={<RegisterPage />} />
         <Route path="/shop" element={<ShopPage />} />
-        <Route path="/shop/:itemId" element={<PreviewItemPage />} />
+        <Route path="/shop/:itemId/:scrollTo" element={<PreviewItemPage />} />
         <Route path="/add/item" element={<AddItemPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckOutPage />} />
