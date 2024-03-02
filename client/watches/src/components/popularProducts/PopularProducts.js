@@ -42,7 +42,7 @@ const PopularProducts = () => {
       ) : (
         <PopularProductsStyled>
           {data?.items?.map((item) => {
-            return <ProductCard key={item._id} item={item} />;
+            return <ProductCard key={item?._id} item={item} />;
           })}
         </PopularProductsStyled>
       )}
