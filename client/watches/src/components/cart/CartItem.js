@@ -11,7 +11,7 @@ import {
   QuantityAndPrice,
   QuantityCover,
 } from "./CartItem.styled";
-import { MyButton, ProductPrice } from "../ProductCard";
+import { MyButton, ProductPrice } from "../ProductCard.styled";
 import { Trash } from "react-bootstrap-icons";
 import { HeroParagraph } from "../home/Home.styled";
 import { currencyFormatter } from "../../utils/Services";
