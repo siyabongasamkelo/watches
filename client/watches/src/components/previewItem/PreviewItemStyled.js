@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { CartegoryHeader } from "../categories/CartegoryDiv";
 import { GetHelpItems } from "../footer/Footer.styled";
 import { HeroParagraph } from "../home/Home.styled";
-import { MyButton, ProductPrice } from "../ProductCard";
+import { MyButton, ProductPrice } from "../ProductCard.styled";
 
 export const PreviewStyled = styled.section`
   width: 100%;
