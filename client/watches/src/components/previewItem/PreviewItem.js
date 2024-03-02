@@ -1,4 +1,3 @@
-import Header from "../header/Header";
 import {
   AddToCart,
   ImageHolder,
@@ -12,12 +11,12 @@ import {
   PreviewStyled,
   ReviewsAndRelatedProducts,
 } from "./PreviewItemStyled";
-import { MyButton } from "../ProductCard";
+import { MyButton } from "../ProductCard.styled";
 import { BagFill } from "react-bootstrap-icons";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { baseUrl, currencyFormatter, getRequest } from "../../utils/Services";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import Spinner from "react-bootstrap/Spinner";
 import Tab from "react-bootstrap/Tab";
@@ -25,6 +24,7 @@ import Tabs from "react-bootstrap/Tabs";
 import RelatedProducts from "../relatedProducts/RelatedProducts";
 import Reviews from "../reviews/Reviews";
 import { CartContext } from "../../context/CartContext";
+import Header from "../header/Header";
 
 const showToastErrorMessage = (message) => {
   toast.error(message);
@@ -35,21 +35,29 @@ const successToastMessage = (message) => {
 };
 
 const PreviewItem = () => {
-  const { addItemToCart } = useContext(CartContext);
+  const reviewSectionRef = useRef(null);
+  const headerRef = useRef(null);
 
-  let { itemId } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(0);
 
+  const { addItemToCart } = useContext(CartContext);
+
+  //fetching the item
+  let { itemId } = useParams();
+  let { scrollTo } = useParams();
+
+  console.log("scroll to on preview", scrollTo);
   const getItem = async () => {
     const item = await getRequest(`${baseUrl}/item/get/${itemId}`);
-    return item.data;
+    return item?.data;
   };
 
   const queryKey = ["item", { itemId }];
   const { data, status } = useQuery(queryKey, getItem);
   const formattedAmount = currencyFormatter.format(data?.price);
 
+  //incrementing and decrementing quantity
   const incrementQuantity = (operator) => {
     if (operator === "subtract" && quantity === 1) return;
     if (operator === "add" && quantity === 20) return;
@@ -65,18 +73,28 @@ const PreviewItem = () => {
     successToastMessage("Item added to cart");
   };
 
+  //calculating total
   useEffect(() => {
     let totalCost = data?.price * quantity;
     const formatedCost = currencyFormatter.format(totalCost);
     setTotal(formatedCost);
   }, [quantity, total, data?.price]);
 
+  useEffect(() => {
+    scrollTo === "reviews" &&
+      reviewSectionRef?.current?.scrollIntoView({ behavior: "smooth" });
+    scrollTo === "none" &&
+      headerRef?.current?.scrollIntoView({ behavior: "smooth" });
+  }, [scrollTo]);
+
   if (status === "error")
     showToastErrorMessage("there was a problem while fetching items");
 
   return (
     <PreviewStyled>
-      <Header />
+      <div ref={headerRef}>
+        <Header />
+      </div>
       <ToastContainer />
       {status === "loading" ? (
         <div
@@ -143,7 +161,7 @@ const PreviewItem = () => {
       )}
       <ReviewsAndRelatedProducts>
         <Tabs
-          defaultActiveKey="related-items"
+          defaultActiveKey="reviews"
           id="uncontrolled-tab-example"
           className="mb-3"
         >
@@ -151,7 +169,9 @@ const PreviewItem = () => {
             <RelatedProducts />
           </Tab>
           <Tab eventKey="reviews" title="reviews">
-            <Reviews itemId={itemId} />
+            <div ref={reviewSectionRef}>
+              <Reviews itemId={itemId} />
+            </div>
           </Tab>
         </Tabs>
       </ReviewsAndRelatedProducts>
