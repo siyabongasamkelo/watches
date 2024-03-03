@@ -18,11 +18,11 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const { cart, total } = useContext(CartContext);
 
-  const totalCost = currencyFormatter.format(200);
-  const subTotal = currencyFormatter.format(200);
+  const totalCostBefore = total + 200;
+  const subTotalBefore = total + 200;
 
-  // const totalCost = total + 200;
-  // const subTotal = total + 200;
+  const totalCost = currencyFormatter.format(totalCostBefore);
+  const subTotal = currencyFormatter.format(subTotalBefore);
 
   const navigate = useNavigate();
   const goToCheckout = () => {
