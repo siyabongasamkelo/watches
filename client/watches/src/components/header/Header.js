@@ -5,16 +5,16 @@ import {
   Logo,
   LogoAndSearch,
   MenuAndCart,
-  TextBox,
 } from "./Header.styled";
 import { Container } from "react-bootstrap";
-import { Search, List, BagFill } from "react-bootstrap-icons";
+import { List, BagFill } from "react-bootstrap-icons";
 import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import HeaderSlider from "./HeaderSlider";
 import { CartContext } from "../../context/CartContext";
 import { currencyFormatter } from "../../utils/Services";
+import Search from "./Search";
 
 const Header = () => {
   const { total } = useContext(CartContext);
@@ -32,12 +32,7 @@ const Header = () => {
               <img src={logo} alt="logo" />
             </Logo>
           </Link>
-          <Search
-            style={{
-              marginRight: "30px",
-            }}
-          />
-          <TextBox placeholder="search here..." />
+          <Search />
         </LogoAndSearch>
         <HeaderLinks>
           <Link to={"/"}>Home</Link>
