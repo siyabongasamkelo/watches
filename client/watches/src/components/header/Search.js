@@ -18,10 +18,9 @@ const showToastErrorMessage = (message) => {
   toast.error(message);
 };
 
-const Search = () => {
+const Search = ({ displayOnMobile }) => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
-  console.log("search", search);
 
   const handleSelect = (eventKey) => {
     setCategory(eventKey);
@@ -51,11 +50,12 @@ const Search = () => {
     showToastErrorMessage("there was a problem while fetching items");
 
   return (
-    <SearchStyles>
+    <SearchStyles displayOnMobile={displayOnMobile}>
       <Searching>
         <SearchBox
           onChange={(e) => setSearch(e.target.value)}
           value={search}
+          placeholder="Search..."
           id="search"
         />
         <CategoriesDropdown>
