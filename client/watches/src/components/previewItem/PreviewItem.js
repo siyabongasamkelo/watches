@@ -47,7 +47,6 @@ const PreviewItem = () => {
   let { itemId } = useParams();
   let { scrollTo } = useParams();
 
-  console.log("scroll to on preview", scrollTo);
   const getItem = async () => {
     const item = await getRequest(`${baseUrl}/item/get/${itemId}`);
     return item?.data;
