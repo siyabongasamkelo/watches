@@ -17,12 +17,8 @@ import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { cart, total } = useContext(CartContext);
-
-  const totalCostBefore = total + 200;
-  const subTotalBefore = total + 200;
-
-  const totalCost = currencyFormatter.format(totalCostBefore);
-  const subTotal = currencyFormatter.format(subTotalBefore);
+  // const totalCost = currencyFormatter.format(totalCostBefore);
+  // const subTotal = currencyFormatter.format(subTotalBefore);
 
   const navigate = useNavigate();
   const goToCheckout = () => {
@@ -45,7 +41,7 @@ const Cart = () => {
         <CartSubTotalCover>
           <CartTotal>SUBTOTAL</CartTotal>
           <CartTotal>
-            <strong>{subTotal}</strong>
+            <strong>{currencyFormatter.format(total)}</strong>
           </CartTotal>
         </CartSubTotalCover>
         <CartSubTotalCover>
@@ -57,7 +53,7 @@ const Cart = () => {
         <CartSubTotalCover>
           <CartTotal>TOTAL</CartTotal>
           <CartTotal>
-            <strong>{totalCost}</strong>
+            <strong>{currencyFormatter.format(total)}</strong>
           </CartTotal>
         </CartSubTotalCover>
         <CheckoutButton onClick={goToCheckout}>

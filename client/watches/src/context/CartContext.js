@@ -8,12 +8,15 @@ export const CartContextProvider = ({ children }) => {
   useEffect(() => {
     const retrievedCartState = localStorage.getItem("cart");
     const deserializedCartState = JSON.parse(retrievedCartState);
-    console.log("deserializedcart", deserializedCartState);
-    if (deserializedCartState) setCart(deserializedCartState);
-    setCart(deserializedCartState);
+
+    if (deserializedCartState !== null || deserializedCartState !== undefined)
+      setCart(deserializedCartState);
+    if (deserializedCartState === null || deserializedCartState === undefined)
+      setCart([]);
   }, []);
 
   useEffect(() => {
+    console.log("cart", cart);
     const serializedCartState = JSON.stringify(cart);
     localStorage.setItem("cart", serializedCartState);
   }, [cart]);
