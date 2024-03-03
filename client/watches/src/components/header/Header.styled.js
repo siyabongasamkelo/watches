@@ -50,15 +50,15 @@ export const LogoAndSearch = styled.div`
   }
   @media only screen and (min-width: 992px) {
     width: 35%;
-    svg {
+    /* svg {
       display: none;
-    }
+    } */
   }
   @media only screen and (min-width: 1200px) {
-    width: 33%;
-    svg {
+    width: 60%;
+    /* svg {
       display: none;
-    }
+    } */
   }
 `;
 
@@ -101,7 +101,6 @@ export const Logo = styled.h3`
 
 export const HeaderLinks = styled.div`
   display: none;
-  margin-left: 15%;
   a {
     text-decoration: none;
     color: ${(props) => props.theme.light.smallText};
