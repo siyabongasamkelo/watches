@@ -22,7 +22,7 @@ const Cart = () => {
 
   const navigate = useNavigate();
   const goToCheckout = () => {
-    if (cart.length === 0) return;
+    if (cart?.length === 0) return;
 
     navigate("/checkout");
   };
@@ -33,7 +33,7 @@ const Cart = () => {
       <CartHeader>Cart</CartHeader>
       <CartContainer>
         {cart.map((item) => (
-          <CartItem key={item._id} item={item} />
+          <CartItem key={item?._id} item={item} />
         ))}
       </CartContainer>
       <CartTotalContainer>
