@@ -7,6 +7,7 @@ import {
   SearchPrice,
   SearchTitle,
 } from "./SearchItem.styled";
+import { currencyFormatter } from "../../utils/Services";
 
 const SearchItem = ({ item }) => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const SearchItem = ({ item }) => {
       <DetailsCover>
         <SearchTitle>{item?.name}</SearchTitle>
         <SearchCategory>{item?.category}</SearchCategory>
-        <SearchPrice>{item?.price}</SearchPrice>
+        <SearchPrice>{currencyFormatter?.format(item?.price)}</SearchPrice>
       </DetailsCover>
     </SearchItemStyled>
   );
