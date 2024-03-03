@@ -18,21 +18,21 @@ export const CartContextProvider = ({ children }) => {
   }, [cart]);
 
   useEffect(() => {
-    const totalCost = cart.reduce((acc, item) => {
+    const totalCost = cart?.reduce((acc, item) => {
       return acc + item.price * item.quantity;
     }, 0);
     setTotal(totalCost);
   }, [cart]);
 
   const addItemToCart = (newItem) => {
-    const existingItem = cart.find((item) => item._id === newItem._id);
+    const existingItem = cart?.find((item) => item._id === newItem._id);
 
     if (existingItem) return;
     setCart([...cart, newItem]);
   };
 
   const increaseQuamtity = (id) => {
-    const index = cart.findIndex((item) => item._id === id);
+    const index = cart?.findIndex((item) => item._id === id);
 
     if (index === -1) return;
     if (cart[index].quantity === 10) return;
@@ -49,7 +49,7 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const decreaseQuamtity = (id) => {
-    const index = cart.findIndex((item) => item._id === id);
+    const index = cart?.findIndex((item) => item._id === id);
 
     if (index === -1) return;
     if (cart[index].quantity === 1) return;
