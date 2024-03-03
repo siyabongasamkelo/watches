@@ -25,7 +25,10 @@ export const CartContextProvider = ({ children }) => {
     const totalCost = cart?.reduce((acc, item) => {
       return acc + item.price * item.quantity;
     }, 0);
-    setTotal(totalCost);
+
+    const shippingCost = 200;
+    const totalAndShippingCost = totalCost + shippingCost;
+    setTotal(totalAndShippingCost);
   }, [cart]);
 
   const addItemToCart = (newItem) => {
