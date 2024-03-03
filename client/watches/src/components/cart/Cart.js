@@ -32,7 +32,7 @@ const Cart = () => {
       <Header />
       <CartHeader>Cart</CartHeader>
       <CartContainer>
-        {cart.map((item) => (
+        {cart?.map((item) => (
           <CartItem key={item?._id} item={item} />
         ))}
       </CartContainer>
