@@ -16,7 +16,6 @@ export const CartContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log("cart", cart);
     const serializedCartState = JSON.stringify(cart);
     localStorage.setItem("cart", serializedCartState);
   }, [cart]);
@@ -33,7 +32,6 @@ export const CartContextProvider = ({ children }) => {
 
   const addItemToCart = (newItem) => {
     if (!newItem) return;
-    console.log("cart", cart);
     const existingItem = cart?.find((item) => item._id === newItem._id);
 
     if (existingItem !== undefined) return;

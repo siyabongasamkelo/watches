@@ -13,7 +13,7 @@ import CartItem from "./CartItem";
 import { CartContext } from "../../context/CartContext";
 import { useContext } from "react";
 import { currencyFormatter } from "../../utils/Services";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const { cart, total } = useContext(CartContext);
@@ -35,6 +35,11 @@ const Cart = () => {
         {cart?.map((item) => (
           <CartItem key={item?._id} item={item} />
         ))}
+        {cart?.length === 0 && (
+          <CartTotalHeader>
+            Cart is empty...<Link to={"/shop"}>click here </Link>to add items
+          </CartTotalHeader>
+        )}
       </CartContainer>
       <CartTotalContainer>
         <CartTotalHeader>Cart Total</CartTotalHeader>

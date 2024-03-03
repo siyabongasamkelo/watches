@@ -11,8 +11,9 @@ import Dropdown from "react-bootstrap/Dropdown";
 import SearchItem from "./SearchItem";
 import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
-import { baseUrl, currencyFormatter, getRequest } from "../../utils/Services";
-import { toast, ToastContainer } from "react-toastify";
+import { baseUrl, getRequest } from "../../utils/Services";
+import { toast } from "react-toastify";
+import Spinner from "react-bootstrap/Spinner";
 
 const showToastErrorMessage = (message) => {
   toast.error(message);
@@ -41,6 +42,7 @@ const Search = ({ displayOnMobile }) => {
 
   const queryKey = ["items", { category, search }];
   const { data, status, refetch } = useQuery(queryKey, fetchItems);
+  console.log(data);
 
   useEffect(() => {
     refetch();
@@ -77,9 +79,18 @@ const Search = ({ displayOnMobile }) => {
       </Searching>
       {search !== "" && (
         <SearchingResults>
-          {data?.items?.map((item) => {
-            return <SearchItem item={item} />;
-          })}
+          {status === "loading" ? (
+            <div
+              className=" dflex justify-content-center align-items-center"
+              style={{ width: "100%", height: "20px" }}
+            >
+              <Spinner />
+            </div>
+          ) : (
+            data?.items?.map((item) => {
+              return <SearchItem item={item} />;
+            })
+          )}
         </SearchingResults>
       )}
     </SearchStyles>
