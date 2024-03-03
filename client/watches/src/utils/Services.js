@@ -1,5 +1,8 @@
 import axios from "axios";
-export const baseUrl = "http://localhost:5000";
+export const baseUrl =
+  process.env.REACT_APP_ENVIRONMENT === "DEVELOPMENT"
+    ? "http://localhost:5000"
+    : "https://watches-fks5.onrender.com";
 
 export const postRequest = async (url, body) => {
   try {
