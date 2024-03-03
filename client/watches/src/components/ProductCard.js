@@ -97,7 +97,7 @@ const ProductCard = ({ item, isSpaceSmall }) => {
           </Link>
         </ProductRating>
 
-        <div></div>
+        <ProductCategory>in stock</ProductCategory>
       </Stack>
 
       <Stack
