@@ -25,6 +25,8 @@ export const CartContextProvider = ({ children }) => {
   }, [cart]);
 
   const addItemToCart = (newItem) => {
+    if (!newItem) return;
+    console.log("cart", cart);
     const existingItem = cart?.find((item) => item._id === newItem._id);
 
     if (existingItem !== undefined) return;
