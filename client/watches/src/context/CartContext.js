@@ -5,8 +5,6 @@ export const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
 
-  console.log("cart", cart);
-
   useEffect(() => {
     const retrievedCartState = localStorage.getItem("cart");
     const deserializedCartState = JSON.parse(retrievedCartState);
