@@ -6,6 +6,10 @@ export const SearchStyles = styled.div`
   border-radius: 30px;
   margin-top: 10px;
   border: 1px solid ${(props) => props.theme.light.primary};
+  @media only screen and (max-width: 600px) {
+    display: ${(props) => (props.displayOnMobile ? "block" : "none")};
+    width: 100%;
+  }
 `;
 
 export const SearchBox = styled.input`
@@ -14,16 +18,25 @@ export const SearchBox = styled.input`
   border: none;
   border-radius: 30px;
   padding-left: 20px;
-  display: none;
   &:focus {
     border: none;
     outline: none;
+  }
+  @media only screen and (max-width: 600px) {
+    width: 58%;
   }
   @media only screen and (min-width: 992px) {
     display: block;
   }
   @media only screen and (min-width: 1200px) {
     display: block;
+  }
+`;
+
+export const MobileSearchDiv = styled.div`
+  width: 100%;
+  @media only screen and (min-width: 992px) {
+    display: none;
   }
 `;
 
@@ -36,6 +49,8 @@ export const Icon = styled.button`
   justify-content: center;
   align-items: center;
   background-color: ${(props) => props.theme.light.secondary};
+  @media only screen and (max-width: 600px) {
+  }
 `;
 
 export const CategoriesDropdown = styled.div`
@@ -43,10 +58,17 @@ export const CategoriesDropdown = styled.div`
   display: flex;
   margin-left: 7%;
   align-items: center;
+  @media only screen and (max-width: 600px) {
+    margin-top: 1%;
+    margin-left: -2%;
+  }
 `;
 
 export const Searching = styled.div`
   display: flex;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const SearchingResults = styled.div`
@@ -55,4 +77,7 @@ export const SearchingResults = styled.div`
   background-color: white;
   position: absolute;
   z-index: 3;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
