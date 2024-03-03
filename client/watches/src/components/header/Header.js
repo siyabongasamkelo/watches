@@ -15,6 +15,7 @@ import HeaderSlider from "./HeaderSlider";
 import { CartContext } from "../../context/CartContext";
 import { currencyFormatter } from "../../utils/Services";
 import Search from "./Search";
+import { MobileSearchDiv } from "./Search.styles";
 
 const Header = () => {
   const { total } = useContext(CartContext);
@@ -32,7 +33,7 @@ const Header = () => {
               <img src={logo} alt="logo" />
             </Logo>
           </Link>
-          <Search />
+          <Search displayOnMobile={false} />
         </LogoAndSearch>
         <HeaderLinks>
           <Link to={"/"}>Home</Link>
@@ -65,6 +66,9 @@ const Header = () => {
           display={display}
         ></HeaderSlider>
       </HeaderStyled>
+      <MobileSearchDiv>
+        <Search displayOnMobile={true} />
+      </MobileSearchDiv>
     </Container>
   );
 };
