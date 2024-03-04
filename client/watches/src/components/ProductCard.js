@@ -93,7 +93,7 @@ const ProductCard = ({ item, isSpaceSmall }) => {
           {data?.averageRating}
           <Link to={`/shop/${item?._id}/${scrollToReviews}`}>
             <StarFill style={{ margin: "0 5px 0 5px", fill: "gold" }} />
-            {data?.totalReviews} total reviews
+            {data?.totalReviews} reviews
           </Link>
         </ProductRating>
 
