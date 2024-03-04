@@ -12,7 +12,7 @@ export const ReviewCardStyles = styled.div`
     width: 45%;
   }
   @media only screen and (min-width: 1200px) {
-    width: 35%;
+    width: 45%;
   }
 `;
 
