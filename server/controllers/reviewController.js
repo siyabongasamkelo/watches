@@ -7,8 +7,6 @@ const createReview = async (req, res) => {
     if (!review || !itemId || !rating || !userId)
       return res.status(400).json("all feilds are required");
 
-    console.log(userId);
-
     const newReview = new reviewModel({
       review,
       rating,
@@ -50,7 +48,13 @@ const getReview = async (req, res) => {
       .limit(pageSize)
       .populate("userId");
 
-    res.status(200).json(reviews);
+    // res.status(200).json(reviews);
+
+    const total = await reviewModel.countDocuments({
+      review: { $regex: searchTerm, $options: "i" },
+    });
+
+    res.status(200).json({ reviews, total, page: pageNumber + 1 });
   } catch (err) {
     console.log(err);
     res.status(400).json(err);
