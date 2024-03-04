@@ -10,6 +10,7 @@ import itemRoutes from "./routes/itemRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import ordersRoutes from "./routes/ordersRoutes.js";
+import subScribersRoutes from "./routes/suscribersRouter.js";
 
 const app = express();
 
@@ -25,8 +26,9 @@ app.use("/item", itemRoutes);
 app.use("/review", reviewRoutes);
 app.use("/", paymentRoutes);
 app.use("/order", ordersRoutes);
+app.use("/subscribers", subScribersRoutes);
 app.all("*", (req, res) => {
-  res.status(400).json("404 Page not found i page alikho");
+  res.status(400).json("404 Page not found");
 });
 
 //mongodb connection
