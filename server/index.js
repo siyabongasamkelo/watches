@@ -26,7 +26,7 @@ app.use("/review", reviewRoutes);
 app.use("/", paymentRoutes);
 app.use("/order", ordersRoutes);
 app.all("*", (req, res) => {
-  res.status(400).json("404 Page not found");
+  res.status(400).json("404 Page not found i page alikho");
 });
 
 //mongodb connection
