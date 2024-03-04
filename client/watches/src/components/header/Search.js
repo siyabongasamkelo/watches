@@ -42,7 +42,6 @@ const Search = ({ displayOnMobile }) => {
 
   const queryKey = ["items", { category, search }];
   const { data, status, refetch } = useQuery(queryKey, fetchItems);
-  console.log(data);
 
   useEffect(() => {
     refetch();
