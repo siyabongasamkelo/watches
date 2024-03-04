@@ -16,6 +16,7 @@ import { CartContext } from "../../context/CartContext";
 import { currencyFormatter } from "../../utils/Services";
 import Search from "./Search";
 import { MobileSearchDiv } from "./Search.styles";
+import { AuthContext } from "../../context/AuthContext";
 
 const Header = () => {
   const { total } = useContext(CartContext);
@@ -23,6 +24,7 @@ const Header = () => {
 
   const [closeMenu, setCloseMenu] = useState(true);
   const [display, setDisplay] = useState("block");
+  const { user, logOut } = useContext(AuthContext);
 
   return (
     <Container>
@@ -38,7 +40,13 @@ const Header = () => {
         <HeaderLinks>
           <Link to={"/"}>Home</Link>
           <Link to={"/shop"}>Shop</Link>
-          <Link to={"/login"}>Login</Link>
+          {user ? (
+            <Link to={"/"} onClick={logOut}>
+              Logout
+            </Link>
+          ) : (
+            <Link to={"/login"}>Login</Link>
+          )}
           <Link to={"/account"}>Contact</Link>
         </HeaderLinks>
         <MenuAndCart>
