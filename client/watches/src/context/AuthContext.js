@@ -5,13 +5,21 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const user = localStorage.getItem("User");
+    const userFromStorage = localStorage.getItem("User");
 
-    setUser(JSON.parse(user));
+    if (userFromStorage === null || userFromStorage === undefined)
+      setUser(null);
+
+    setUser(JSON.parse(userFromStorage));
   }, []);
 
   const updateUser = (newUser) => {
     setUser(newUser);
+  };
+
+  const logOut = () => {
+    localStorage.removeItem("User");
+    setUser(null);
   };
 
   return (
@@ -19,6 +27,7 @@ export const AuthContextProvider = ({ children }) => {
       value={{
         user,
         updateUser,
+        logOut,
       }}
     >
       {children}
