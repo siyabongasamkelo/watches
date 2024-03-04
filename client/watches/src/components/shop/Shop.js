@@ -36,6 +36,7 @@ const Shop = () => {
   const [category, setCategory] = useState("All");
   const [page, setPage] = useState(1);
 
+  //fetching items
   const fetchItems = async () => {
     try {
       const items = await getRequest(
@@ -49,11 +50,20 @@ const Shop = () => {
     }
   };
 
-  let minPrice = currencyFormatter.format(values[0]);
-  let maxPrice = currencyFormatter.format(values[1]);
-
   const queryKey = ["items", { sort, category, search, page }];
   const { data, status, refetch } = useQuery(queryKey, fetchItems);
+
+  useEffect(() => {
+    refetch();
+  }, [sort, category, search, page, refetch, values, setValues]);
+
+  if (status === "error")
+    showToastErrorMessage("there was a problem while fetching items");
+
+  // conveting values to currency
+
+  let minPrice = currencyFormatter.format(values[0]);
+  let maxPrice = currencyFormatter.format(values[1]);
 
   //pagination functions
   const pageChange = (change) => {
@@ -65,13 +75,6 @@ const Shop = () => {
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
   };
-
-  useEffect(() => {
-    refetch();
-  }, [sort, category, search, page, refetch, values, setValues]);
-
-  if (status === "error")
-    showToastErrorMessage("there was a problem while fetching items");
 
   return (
     <ShopStyled>
@@ -96,6 +99,9 @@ const Shop = () => {
               onChange={(e) => {
                 setSearch(e.target.value);
               }}
+              type="text"
+              value={search}
+              name="search"
             />
             <FilterHeader>Filter by price</FilterHeader>
 
