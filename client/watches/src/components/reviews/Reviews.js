@@ -13,6 +13,8 @@ import {
   CategoriesHeader,
   CategoriesItem,
   FilterAndSort,
+  PaginationContainer,
+  SearchItem,
   ShopItems,
   SortBy,
 } from "../shop/Shop.styled";
@@ -45,11 +47,11 @@ const StarRating = ({ rating }) => {
 };
 
 const calculateAverageRating = (reviews) => {
-  if (!reviews || reviews.length === 0) {
+  if (!reviews || reviews?.length === 0) {
     return 0; // Return 0 if there are no reviews
   }
 
-  const totalRating = reviews.reduce(
+  const totalRating = reviews?.reduce(
     (accumulator, review) => accumulator + review?.rating,
     0
   );
@@ -62,10 +64,11 @@ const Reviews = ({ itemId }) => {
   const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
   const [rating, setRating] = useState(null);
+  const [openReviewForm, setOpenReviewForm] = useState(false);
 
   const { user } = useContext(AuthContext);
 
-  const [openReviewForm, setOpenReviewForm] = useState(false);
+  // fetching reviews
   const fetchReviews = async () => {
     try {
       const reviews = await getRequest(
@@ -79,6 +82,17 @@ const Reviews = ({ itemId }) => {
     }
   };
 
+  const queryKey = ["reviews", { itemId, page, search, sort, rating }];
+  const { data, status, refetch } = useQuery(queryKey, fetchReviews);
+
+  if (status === "error")
+    showToastErrorMessage("there was a problem while fetching reviews");
+
+  useEffect(() => {
+    refetch();
+  }, [itemId, page, search, sort, rating, refetch]);
+
+  //opening closing form
   const openForm = () => {
     if (user) {
       setOpenReviewForm(true);
@@ -87,18 +101,19 @@ const Reviews = ({ itemId }) => {
     }
   };
 
-  const queryKey = ["reviews", { itemId, page, search, sort, rating }];
-  const { data, status, refetch } = useQuery(queryKey, fetchReviews);
-  console.log("reviews", data);
+  //calculating average rating
+  const averageRating = calculateAverageRating(data?.reviews);
 
-  const averageRating = calculateAverageRating(data);
+  //pagination functions
+  const pageChange = (change) => {
+    change === "next"
+      ? setPage((prevPage) => prevPage + 1)
+      : setPage((prevPage) => prevPage - 1);
+  };
 
-  if (status === "error")
-    showToastErrorMessage("there was a problem while fetching reviews");
-
-  useEffect(() => {
-    refetch();
-  }, [itemId, page, search, sort, rating, refetch]);
+  const handlePageChange = (pageNumber) => {
+    setPage(pageNumber);
+  };
 
   return (
     <ReviewsStyled>
@@ -128,6 +143,16 @@ const Reviews = ({ itemId }) => {
                 ({data?.length}) Total reviews
               </p>
             </div>
+
+            <SearchItem
+              placeholder="search..."
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+              type="text"
+              name="search"
+            />
+
             <CategoriesHeader>Filter by star ratings </CategoriesHeader>
             <CategoriesItem onClick={() => setRating(null)}>
               Get all reviews
@@ -160,9 +185,17 @@ const Reviews = ({ itemId }) => {
               </Form.Select>
             </SortBy>
 
-            {data?.map((reviews) => {
+            {data?.reviews?.map((reviews) => {
               return <ReviewCard key={reviews?._id} reviews={reviews} />;
             })}
+
+            <PaginationContainer
+              totalItems={data?.total}
+              itemsPerPage={6}
+              pageChange={pageChange}
+              currentPage={page}
+              handlePageChange={handlePageChange}
+            />
           </ShopItems>
         </ReviewCover>
       )}
