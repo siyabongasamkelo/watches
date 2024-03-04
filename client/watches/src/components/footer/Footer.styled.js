@@ -33,7 +33,7 @@ export const GetHelp = styled.div`
   }
 `;
 
-export const Subscribe = styled.div`
+export const Subscribe = styled.form`
   width: 100%;
   height: 25%;
   @media only screen and (min-width: 992px) {
