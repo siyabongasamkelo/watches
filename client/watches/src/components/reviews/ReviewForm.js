@@ -52,15 +52,18 @@ const ReviewForm = ({ closeForm, itemId }) => {
             "there was a problem while adding your review please try again"
           );
           setLoading(false);
+          closeForm();
           return showToastErrorMessage(addReview?.err?.response?.data);
         }
 
         successToastMessage(addReview?.data?.data);
         setLoading(false);
+        closeForm();
       } catch (err) {
         console.log(err.message);
         setLoading(false);
         showToastErrorMessage("Something went wrong please try again later");
+        closeForm();
       }
     },
   });
