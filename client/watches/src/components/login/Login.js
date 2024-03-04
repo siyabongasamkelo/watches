@@ -64,7 +64,6 @@ const Login = () => {
 
         localStorage.setItem("User", JSON.stringify(loggingUser?.data?.data));
         setLoading(false);
-        console.log("loggingUser", loggingUser?.data?.data);
         updateUser(loggingUser?.data?.data);
         successToastMessage("user logged in successfully");
         setTimeout(goHome, 4000);
